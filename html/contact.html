@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="../css/library/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/library/all.min.css" />
+    <link rel="stylesheet" href="../css/library/normalize.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/master.css" />
+
+    <!-- Font Request -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Request -->
+  </head>
+
+  <body>
+    <section class="map pb-5 min-vh-100">
+      <header>
+        <nav class="navbar py-0 bg-transparent">
+          <div
+            class="container-75 d-flex justify-content-between align-items-center"
+          >
+            <a class="" href="#">
+              <img
+                src="../assets/images/Logo-Istabrak.png"
+                alt=""
+                class="img-fluid"
+                loading="lazy"
+              />
+            </a>
+            <div
+              class="menu-bars p-0 rounded d-flex justify-content-center align-items-center cursor-pointer text-black"
+              id="menu-btn"
+            >
+              <span class="text-black pe-4 text-uppercase">Menu </span>
+              <i class="fa-solid fa-bars"></i>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <section
+        class="menu-area position-absolute w-100 h-100 bg-transparent top-0 start-0 d-none fixed-top sticky z-2"
+      >
+        <div
+          id="close-menu"
+          class="close-menu position-absolute start-50 translate-middle-x cursor-pointer"
+        >
+          <i class="fa-regular fa-circle-xmark text-white fs-1"></i>
+        </div>
+        <ul
+          class="text-center text-white list-unstyled position-absolute top-50 start-50 translate-middle"
+        >
+          <li>
+            <a
+              class="text-decoration-none text-white cursor-pointer fs-4 p-4 fw-bold text-capitalize d-block"
+              href="../index.html"
+              >reception</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-decoration-none text-white cursor-pointer fs-4 p-4 fw-bold text-capitalize d-block"
+              href="who_we_are.html"
+              >Who We Are</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-decoration-none text-white cursor-pointer fs-4 p-4 fw-bold text-capitalize d-block"
+              href="../index.html#about"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-decoration-none text-white cursor-pointer fs-4 p-4 fw-bold text-capitalize d-block"
+              href="/products.html"
+              >Products</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-decoration-none text-white cursor-pointer fs-4 p-4 fw-bold text-capitalize d-block"
+              href="#"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <div class="google-map container-75">
+        <h1 class="big-title mb-5">Find Us On Google Maps</h1>
+
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d190.81246995932938!2d29.53032406868069!3d40.0754228194654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cbc941b84a334f%3A0xf5379cf46b9196c2!2zS3JhbCBEw7Zrw7xtIFNhbmF5aQ!5e0!3m2!1sar!2str!4v1719734370524!5m2!1sar!2str"
+          width="670"
+          height="450"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="mt-5 border border-gray show-text-y-80"
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="contact-form py-5">
+      <div class="container-75">
+        <div>
+          <p class="fs-6 fw-normal opacity-50 show-text-x-50">Contact Form</p>
+          <h1 class="big-title show-text-y-50">Contact Us By Email</h1>
+        </div>
+        <form class="d-flex flex-column gap-4" action="">
+          <fieldset class="border-bottom border-gray w-50 show-text-x-50">
+            <legend>
+              <label class="opacity-75 fs-5" for="full-name">Full Name</label>
+            </legend>
+            <input class="border-0 w-100" type="text" id="full-name" />
+          </fieldset>
+
+          <fieldset class="border-bottom border-gray w-50 show-text-y-50">
+            <legend>
+              <label class="opacity-75 fs-5" for="email">Email</label>
+            </legend>
+            <input class="border-0 w-100" type="email" id="email" />
+          </fieldset>
+
+          <fieldset class="border-bottom border-gray w-50 show-text-x-50">
+            <legend>
+              <label class="opacity-75 fs-5" for="phone">Phone Number</label>
+            </legend>
+            <input class="border-gray border w-100" type="text" id="phone" />
+          </fieldset>
+
+          <fieldset class="border-bottom border-gray w-50 show-text-y-50">
+            <legend>
+              <label class="opacity-75 fs-5" for="object">Object</label>
+            </legend>
+            <input class="border-0 w-100" type="text" id="object" />
+          </fieldset>
+
+          <fieldset class="border-bottom border-gray w-100 show-text-x-50">
+            <legend>
+              <label class="opacity-75 fs-5" for="text-area">Massage</label>
+            </legend>
+            <textarea
+              class="border-0 w-100"
+              style="resize: none; overflow: hidden"
+              name=""
+              id="text-area"
+            ></textarea>
+          </fieldset>
+
+          <button
+            class="p-4 fs-6 ls-2 fw-medium text-uppercase text-black border-0 ms-auto show-text-x-30"
+            id="send-massage"
+            type="submit"
+          >
+            Send Massage
+          </button>
+        </form>
+      </div>
+    </section>
+    <section class="discover bg-black w-100 h-100 text-white">
+      <div class="container-75">
+        <div class="row">
+          <h1 class="col-lg-5 col-md-6 col-sm-12 show-text-x-50">
+            <p class="fs-1 ls-none text-white">
+              Products that combine elegance and functionality
+            </p>
+          </h1>
+
+          <div
+            class="col-lg-7 col-md-6 col-sm-12 d-flex justify-content-evenly align-items-start"
+          >
+            <p class="fw-normal ls-none text-white-50 show-text-x-50">
+              Pieces that will not only beautify your space, but will also stand
+              the test of time.
+            </p>
+
+            <a
+              class="text-uppercase py-4 px-5 fw-normal show-text-y-50"
+              href="who_we_are.html"
+              >Discover Us</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="container-75">
+      <div class="row text-capitalize ls-n1 justify-content-evenly">
+        <div class="info col-md-12 col-lg-8 show-text-y">
+          <h3 class="fw-bold fs-5 mb-5 position-relative">istabrak</h3>
+
+          <p class="ls-n1 fw-normal text-black lh-lg w-75">
+            Passionate about Interior Design and motivated by the desire to
+            offer the best to the Algerian consumer, the founders of Istabrak
+            then made the decision to create this home textile company stemming
+            from a combination of deep motivations and personal convictions
+          </p>
+        </div>
+
+        <div class="col-2 show-text-x">
+          <h6 class="text-black-50 fs-6 pb-4 text-uppercase">Menu</h6>
+          <ul class="list-unstyled text-black">
+            <li class="cursor-pointer fw-medium pb-3">
+              <a class="text-black" href="#">about</a>
+            </li>
+            <li class="cursor-pointer fw-medium pb-3">
+              <a class="text-black" href="#">reception</a>
+            </li>
+            <li class="cursor-pointer fw-medium pb-3">
+              <a class="text-black" href="#">Who We Are</a>
+            </li>
+            <li
+              class="cursor-pointer fw-medium pb-3 position-relative show-products"
+            >
+              <p class="text-black m-0">
+                <span> product </span>
+                <span class="plus-icon">
+                  <i class="fa-solid fa-caret-down"></i
+                ></span>
+              </p>
+              <ul
+                class="position-absolute start-50 translate-middle-x p-0 top-100 bg-white border border-gray overflow-y-scroll"
+                style="height: 0px; width: 0px; opacity: 0"
+              >
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+                <li
+                  class="cursor-pointer fw-medium p-3 border-bottom border-gray"
+                >
+                  <a class="text-black" href="#">product</a>
+                </li>
+              </ul>
+            </li>
+            <li class="cursor-pointer fw-medium pb-3">
+              <a class="text-black" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2 show-text-x animation-delay-4">
+          <h6 class="text-black-50 fs-6 pb-4 text-uppercase">Follow</h6>
+          <ul class="list-unstyled text-black">
+            <li class="cursor-pointer fw-medium pb-3">
+              <a class="text-black" href="#">Whatsapp</a>
+            </li>
+            <li class="cursor-pointer fw-medium pb-3">
+              <a class="text-black" href="#">Facebook</a>
+            </li>
+            <li class="cursor-pointer fw-medium pb-3">
+              <a class="text-black" href="#">Instagram</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <div class="copyright border-top pt-3">
+      <div class="container-75">
+        <p class="fw-normal">
+          &#169; 2024 Istabrak - All rights reversed | site developed by
+          <a href="https://github.com/ALOMAWY">Abdalrahman ALDABBAS</a>
+        </p>
+      </div>
+    </div>
+    <script src="../js/libs/bootstrap.bundle.min.js"></script>
+    <script src="../js/libs/all.min.js"></script>
+    <script src="../dist/index.js"></script>
+    <script src="../dist/pages/who_we_are.js"></script>
+  </body>
+</html>

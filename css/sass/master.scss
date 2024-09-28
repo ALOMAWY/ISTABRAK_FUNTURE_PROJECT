@@ -1,0 +1,588 @@
+@use "./helpers/animation/animations" as *;
+
+@use "./pages/who_we_are" as *;
+
+@use "./pages/contact" as *;
+
+@use "./pages/products" as *;
+
+@use "./helpers/colors" as *;
+
+@use "../sass/pages/home_page";
+:root {
+  --orange: #ac6444;
+  --lower-orange: #ac64441c;
+  --dark: #000;
+  --light: #fff;
+  --alt-light: #f4f4f0;
+  --skyblue: #1bb0ce;
+
+  --gray: #ffffff4a;
+}
+
+* {
+  transition: 0.3s;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* adding to bootstrap  Start*/
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* adding to bootstrap  End*/
+
+/* Global Styling  Start*/
+
+.container-75 {
+  width: 90%;
+  margin: 0 auto;
+}
+
+header {
+  nav {
+    div {
+      span {
+        font-size: 1.4rem;
+      }
+      svg {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+.menu-area {
+  opacity: 0;
+  backdrop-filter: blur(25px);
+  .close-menu {
+    top: 100px;
+  }
+
+  &::before {
+    content: "";
+    background-color: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.45;
+  }
+}
+
+.section-title {
+  font-size: 5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--lower-orange);
+}
+.main-btn {
+  display: block;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.main-btn:hover {
+  background-color: var(--orange) !important;
+  color: var(--dark) !important;
+}
+
+.background-effect {
+  position: relative;
+}
+
+.background-effect::before {
+  content: "";
+  width: 0%;
+  height: 100%;
+  background-color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.big-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  word-spacing: -2px;
+  margin: 2rem 0;
+}
+
+.icon-holder {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+
+  svg {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+/* Add Container Break Points */
+
+@media (max-width: 576px) {
+  .container-75 {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .big-title {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+  .container-75 {
+    width: 90%;
+    margin: 0 auto;
+    padding: 13px;
+  }
+  .big-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .container-75 {
+    width: 85%;
+    margin: 0 auto;
+    padding: 15px;
+  }
+
+  .big-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container-75 {
+    width: 80%;
+    margin: 0 auto;
+    padding: 17px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .container-75 {
+    width: 75%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+}
+
+@media (min-width: 1400px) {
+}
+
+/* Add Container Break Points */
+
+/* Global Styling  End*/
+
+/* animation  */
+/* animation  */
+
+@media (max-width: 767px) {
+  .navbar {
+    .container {
+      a {
+        img {
+          width: 120px;
+        }
+      }
+
+      .menu-bars {
+        .text-black {
+          font-size: 1.4rem;
+        }
+
+        svg {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+/* Start Discover */
+
+@keyframes show-black-bg {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.discover {
+  position: relative;
+
+  .container-75 {
+    .row {
+      padding: 8rem 0;
+      h1 {
+        p {
+          width: 90%;
+          font-weight: 900;
+          letter-spacing: -1;
+        }
+      }
+      div {
+        p {
+          width: 45%;
+        }
+        a {
+          background-color: var(--orange);
+          color: var(--dark);
+          font-weight: 500;
+          font-size: 0.9rem;
+          letter-spacing: 2px;
+        }
+        a:hover {
+          background-color: var(--dark);
+          color: var(--orange);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .discover {
+    .container-75 {
+      .row {
+        text-align: center;
+        h1 {
+          p {
+            width: 100%;
+          }
+        }
+        div {
+          flex-wrap: wrap;
+          p {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+/* End Discover */
+
+/* Start Footer */
+
+footer {
+  background-color: var(--alt-light);
+  padding: 7rem;
+
+  .row {
+    .info {
+      h3 {
+        width: fit-content;
+      }
+      h3::before {
+        content: "";
+        width: 50%;
+        height: 1px;
+        background-color: #000;
+        position: absolute;
+        left: 0;
+        top: -20px;
+      }
+    }
+    div {
+      ul {
+        .show-products {
+          p {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+
+            span:not(.plus-icon) {
+              padding-right: 10px;
+            }
+            span.plus-icon {
+              position: relative;
+              width: 20px;
+              height: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transform-origin: center;
+            }
+          }
+
+          &:hover {
+            p {
+              span.plus-icon {
+                transform: rotate(85deg);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  footer {
+    padding: 7rem 0;
+    .row {
+      text-align: center;
+      .info {
+        width: 100%;
+        margin-bottom: 50px;
+        padding-top: 3rem;
+        h3 {
+          width: 100%;
+        }
+
+        p {
+          width: 100% !important;
+        }
+
+        h3::before {
+          content: "";
+          width: 50px;
+          height: 1px;
+          background-color: #000;
+          position: absolute;
+          top: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      div {
+        width: 40%;
+        ul {
+          text-align: center;
+
+          li {
+            display: block;
+            a {
+              display: block;
+            }
+          }
+
+          .show-products {
+            p {
+              justify-content: center;
+              align-items: center;
+
+              span:not(.plus-icon) {
+                padding-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.57rem;
+    margin-bottom: 40px;
+  }
+}
+
+/* End Footer */
+
+// Before & After Default Styling
+
+%pseudoDefaultStyle {
+  content: "";
+  position: absolute;
+}
+
+// Create Background Effects With All Colors
+
+$allColors: (
+  "altLight": "#f4f4f0",
+  "black": "#000",
+  "light": "#fff",
+);
+
+// Create Background Effect Animation Classes As From 10 - 100 As View Port Height Percent
+
+@for $i from 1 through 10 {
+  @each $color, $value in $allColors {
+    .background-#{$color}-effect-#{$i*10} {
+      position: relative;
+      &::before {
+        @extend %pseudoDefaultStyle;
+        width: 0%;
+        height: 100%;
+        right: 0;
+        top: 0;
+        background-color: #{$value};
+        transition: 0.5s;
+        animation: background-#{$color}-effect 1s ease-in 1 backwards;
+
+        @if $i == 1 {
+          animation-timeline: view(#{100 - 10}vh 100px);
+        } @else if $i == 2 {
+          animation-timeline: view(#{100 - 20}vh 100px);
+        } @else if $i == 3 {
+          animation-timeline: view(#{100 - 30}vh 100px);
+        } @else if $i == 4 {
+          animation-timeline: view(#{100 - 40}vh 100px);
+        } @else if $i == 5 {
+          animation-timeline: view(#{100 - 50}vh 100px);
+        } @else if $i == 6 {
+          animation-timeline: view(#{100 - 60}vh 100px);
+        } @else if $i == 7 {
+          animation-timeline: view(#{100 - 70}vh 100px);
+        } @else if $i == 8 {
+          animation-timeline: view(#{100 - 80}vh 100px);
+        } @else if $i == 9 {
+          animation-timeline: view(#{100 - 90}vh 100px);
+        } @else {
+          animation-timeline: view(200px 100px);
+        }
+      }
+    }
+
+    @include animations("background-#{$color}-effect") {
+      from {
+        width: 100%;
+      }
+      to {
+        width: 0%;
+      }
+    }
+  }
+}
+
+$animationName: "blur-layer-hover";
+
+.#{$animationName} {
+  position: relative;
+
+  &::before {
+    @extend %pseudoDefaultStyle;
+    width: 85%;
+    height: 85%;
+    background-color: transparent;
+    backdrop-filter: blur(1px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.3s;
+  }
+
+  &:hover::before {
+    width: 0%;
+  }
+}
+
+// Create Show Text Animation Classes As From 10 - 100 As View Port Height Percent
+
+/*
+
+* @name: blur-layer-hover
+*/
+@mixin showText($direction) {
+  @for $i from 1 through 10 {
+    .show-text-#{$direction}-#{$i*10} {
+      animation: show-text-#{$direction} 0.5s ease-out 1 backwards;
+
+      @if $i == 1 {
+        animation-timeline: view(#{100 - 10}vh 100px);
+      } @else if $i == 2 {
+        animation-timeline: view(#{100 - 20}vh 100px);
+      } @else if $i == 3 {
+        animation-timeline: view(#{100 - 30}vh 100px);
+      } @else if $i == 4 {
+        animation-timeline: view(#{100 - 40}vh 100px);
+      } @else if $i == 5 {
+        animation-timeline: view(#{100 - 50}vh 100px);
+      } @else if $i == 6 {
+        animation-timeline: view(#{100 - 60}vh 100px);
+      } @else if $i == 7 {
+        animation-timeline: view(#{100 - 70}vh 100px);
+      } @else if $i == 8 {
+        animation-timeline: view(#{100 - 80}vh 100px);
+      } @else if $i == 9 {
+        animation-timeline: view(#{100 - 90}vh 100px);
+      } @else if $i == 10 {
+        animation-timeline: view(#{100 - 100}vh 100px);
+      } @else {
+        animation-timeline: view(700px 100px);
+      }
+    }
+  }
+
+  .show-text-#{$direction} {
+    animation: show-text-#{$direction} 0.5s ease-out 1 backwards;
+    animation-timeline: view(100vh 100px);
+  }
+
+  @include animations(show-text-#{$direction}) {
+    @if $direction == "y" {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    } @else if $direction == "x" {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0px);
+      }
+    }
+  }
+}
+
+// Make Animation For Y Access
+@include showText("y");
+
+// Make Animation For X Access
+@include showText("x");
+
+$delay: 0.25;
+
+@for $i from 1 through 4 {
+  @media (max-width: 767px) {
+    .animation-delay-sm-#{$i} {
+      animation-delay: #{$delay}s !important;
+    }
+  }
+  .animation-delay-#{$i} {
+    animation-delay: #{$delay}s;
+  }
+  $delay: $delay + 0.25;
+}
+
+@for $i from 0 to 20 {
+  .ls-#{$i} {
+    letter-spacing: #{$i}px;
+  }
+}

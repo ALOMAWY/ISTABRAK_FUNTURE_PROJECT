@@ -1,0 +1,382 @@
+/* animation  */
+/* animation  */
+
+/* Start Landing  */
+
+.landing-screen {
+  /* background-image: url(../assets/images/landing.jpg); */
+  background-image: url(../assets/images/landing.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  background-attachment: fixed;
+  z-index: -1;
+
+  .widgets-layer {
+    position: relative;
+    top: 20%;
+
+    .text-area {
+      animation: show-landing-text 0.38s linear 1 backwards;
+      h3 {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        span {
+          width: fit-content;
+        }
+        .large-text {
+          font-size: 7rem;
+        }
+        .medium-text {
+          font-size: 8rem;
+        }
+      }
+    }
+
+    .quote::after {
+      content: "\f10e";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      top: -20px;
+      right: -6rem;
+      color: white;
+      font-size: 6rem;
+    }
+
+    .widgets {
+      .widget {
+        flex-basis: 50%;
+        height: 25%;
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: scale-width 0.4s ease-out 1 forwards;
+        animation-delay: 0s;
+        h2 {
+          a {
+            width: min-content;
+          }
+        }
+      }
+
+      .widget.widget-hide {
+        opacity: 0;
+      }
+    }
+  }
+
+  &::before {
+    content: "";
+    background-color: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.45;
+  }
+}
+
+/* Landing Animations  */
+
+@keyframes scale-width {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes show-landing-text {
+  from {
+    opacity: 0.6;
+    scale: 0.7;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    .container {
+      a {
+        img {
+          width: 120px;
+        }
+      }
+
+      .menu-bars {
+        .text-black {
+          font-size: 1.4rem;
+        }
+
+        svg {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .landing-screen {
+    .widgets-layer {
+      top: 5%;
+      .text-area {
+        animation: show-landing-text 0.38s linear 1 backwards;
+        h3 {
+          .large-text {
+            font-size: 5rem;
+          }
+          .medium-text {
+            font-size: 6rem;
+          }
+        }
+      }
+
+      .quote::after {
+        font-size: 4rem;
+        right: -4rem;
+      }
+
+      .widgets {
+        .widget {
+          height: 55%;
+        }
+      }
+    }
+  }
+}
+
+/* Landing Medias */
+
+@media (max-width: 575px) {
+  .landing-screen {
+    .widgets-layer {
+      .text-area {
+        p {
+          font-size: 0.8rem !important;
+        }
+        h3 {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+
+          span {
+            width: fit-content;
+          }
+
+          .large-text {
+            font-size: 3rem;
+          }
+          .medium-text {
+            font-size: 3rem;
+          }
+        }
+      }
+
+      .quote::after {
+        font-size: 2.4rem;
+        right: -3rem;
+      }
+
+      .widgets {
+        .widget {
+          height: 55%;
+        }
+      }
+    }
+  }
+}
+
+/* End Landing  */
+
+/* Start About  */
+
+.about {
+  min-height: 100vh;
+
+  .container-75 {
+    .text-area {
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+      }
+
+      div {
+        max-width: 65%;
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .about {
+    min-height: 100vh;
+    /* padding: 100px; */
+
+    .container-75 {
+      .text-area {
+        text-align: center !important;
+        h1 {
+          font-size: 3rem;
+        }
+        div {
+          max-width: 100%;
+        }
+
+        a {
+          margin: auto;
+        }
+      }
+    }
+  }
+}
+
+/* End About  */
+
+/* Start Customers View  */
+
+.customers-talk {
+  background-color: var(--alt-light);
+  .views {
+    .container-75 {
+      padding-bottom: 15rem;
+
+      h1 {
+        font-weight: 900;
+      }
+
+      .gallery-site {
+        .content-holder {
+          border: 25px solid var(--light);
+          width: 70%;
+          margin: 0 auto;
+          .info {
+            width: 67%;
+            top: calc(100% - 150px);
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 3rem;
+
+            .person {
+              .person-logo {
+                width: 50px;
+              }
+            }
+          }
+        }
+      }
+
+      .buttons {
+        width: 100%;
+        justify-content: space-between;
+        span {
+          width: 70px;
+          height: 70px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .customers-talk {
+    .views {
+      position: relative;
+      text-align: center;
+      .container-75 {
+        padding-bottom: 10rem;
+        h1 {
+          p {
+            width: 100%;
+            font-size: 2rem;
+          }
+        }
+
+        .gallery-site {
+          margin-bottom: 200px;
+          .content-holder {
+            width: 100%;
+            .info {
+              flex-direction: column-reverse;
+              width: 100%;
+              top: calc(100%);
+              padding: 1rem;
+              blockquote {
+                font-size: 1.5rem;
+                /* width: 61% !important; */
+              }
+
+              .person {
+                width: 100%;
+                margin: 0 !important;
+                border-bottom: 1px solid var(--gray);
+                .person-logo {
+                  width: 50px;
+                }
+              }
+            }
+          }
+        }
+
+        .buttons {
+          position: absolute;
+          bottom: -400px;
+          left: 50%;
+          transform: translateX(-50%);
+          span {
+            width: 70px;
+            height: 70px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* End Customers View  */
+
+/* Start Products  */
+
+.our-product {
+  .products {
+    .row {
+      div {
+        img {
+          box-shadow: 0 0 20px 0px rgb(146, 144, 144);
+        }
+
+        h3 {
+          color: var(--skyblue);
+          position: relative;
+        }
+
+        h3::before {
+          content: "";
+          width: 15%;
+          height: 1px;
+          background-color: #00000079;
+          position: absolute;
+          bottom: -30px;
+          left: 50%;
+          transform: translateX(-50%);
+          transition: 0.5s;
+        }
+
+        h3:hover {
+          color: var(--orange);
+        }
+
+        h3:hover::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+/* End Products  */

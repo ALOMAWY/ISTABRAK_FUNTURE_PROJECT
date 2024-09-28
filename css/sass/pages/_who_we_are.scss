@@ -1,0 +1,81 @@
+@use "../helpers/colors" as *; //
+.square-image {
+  height: 65vh;
+  width: auto;
+}
+
+// Start Identification
+
+@media (max-width: 991px) {
+  .identification {
+    text-align: center !important;
+    > .container-75 {
+      .row {
+        div {
+          img {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+
+    .container-75 {
+      .row {
+        .values {
+          .info {
+            div {
+              flex-direction: column;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// End Identification // Start Statistic
+.statistics {
+  padding: 5rem 0;
+
+  .floor-line {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      width: 25%;
+      height: 2px;
+      background-color: $greenColor;
+    }
+  }
+  .counters {
+    div {
+      border: 1px solid $greenColor;
+      .counter {
+        border: none;
+        font-size: 4.5rem;
+        font-weight: 600;
+        padding: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .statistics {
+    text-align: center !important;
+    .floor-line {
+      margin-bottom: 4rem;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+
+// End Statistic
