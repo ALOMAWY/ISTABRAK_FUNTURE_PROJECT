@@ -1,4 +1,224 @@
-let products = Array.from(document.querySelectorAll(".product"));
+let products = Array.from(document.querySelectorAll(".products"));
+async function getProducts() {
+  let requset = await fetch("../../products/products.json");
+
+  let data = await requset.json();
+
+  console.log(Array.isArray(data));
+
+  interface product {
+    imgPath: string;
+    type: string;
+  }
+
+  data.forEach((e: product) => {
+    let div = document.createElement("div");
+
+    div.classList.add(
+      "product",
+      "col-sm-12",
+      "col-md-5",
+      "col-lg-2",
+      "border",
+      "border-gray",
+      "rounded-3"
+    );
+
+    let img = document.createElement("img") as HTMLImageElement;
+
+    img.classList.add(
+      "img-fluid",
+      "show-text-x-50",
+      "show-text-x-50",
+      "rounded-4"
+    );
+
+    img.src = e.imgPath;
+
+    div.appendChild(img);
+
+    document.getElementById(`${e.type}-prod`)?.prepend(div);
+  });
+
+  products.forEach((e) => {
+    let event = e as HTMLDivElement;
+    // Show All Products Length
+    getProductsNumber(event);
+
+    // display Specified Products In Page
+    displaySpecifiedNumberOfProduct(event);
+
+    // Add More Products On Click Show More Button
+    addShowingProductsNumber(event);
+
+    // Fix The Products Title In Top If It In Them Products Scoope !
+    setTheTitleFixedTopIfInProductScoope(event);
+
+    // Review The Clicked Image In Advance Scoope
+    showClickedPictureMoreDetails(event);
+  });
+}
+getProducts();
+
+function displaySpecifiedNumberOfProduct(productsHolder: HTMLDivElement) {
+  let uniecClass = productsHolder.getAttribute("data-un-class");
+
+  let productsContainer = Array.from(
+    document.querySelectorAll(`.${uniecClass} .holder .row div.product`)
+  );
+
+  if (productsContainer)
+    productsContainer.forEach((card, index) => {
+      if (index >= 5) {
+        card.classList.add("d-none");
+      } else {
+        card.classList.remove("d-none");
+      }
+    });
+}
+
+function getProductsNumber(productsHolder: HTMLDivElement) {
+  let uniecClass = productsHolder.getAttribute("data-un-class");
+
+  let productsLength = document.querySelectorAll(
+    `.${uniecClass} .holder .row div.product`
+  ).length;
+
+  let productsLengthArea = document.querySelector(
+    `.${uniecClass} .products-length`
+  );
+
+  if (productsLengthArea)
+    productsLengthArea.innerHTML = `${productsLength} Products`;
+}
+
+function addShowingProductsNumber(productsHolder: HTMLDivElement) {
+  let uniecClass = productsHolder.getAttribute("data-un-class");
+
+  let showMoreBtn = document.querySelector(`.${uniecClass} .show-more`);
+
+  let showMoreLimit = 5;
+
+  showMoreBtn?.addEventListener("click", () => {
+    let products = document.querySelectorAll(
+      `.${uniecClass} .holder .row div.product`
+    );
+
+    let productsLength = products.length;
+
+    let showingProducts = Array.from(products).filter(
+      (prod) => !prod.classList.contains("d-none")
+    ).length;
+
+    let productsContainer = Array.from(products);
+
+    if (productsContainer)
+      productsContainer.forEach((card, index) => {
+        if (index >= showingProducts + showMoreLimit) {
+          card.classList.add("d-none");
+        } else {
+          scalingShow(card as HTMLElement);
+        }
+      });
+
+    let productsLengthArea = document.querySelector(
+      `.${uniecClass} .products-length`
+    );
+
+    if (productsLengthArea)
+      productsLengthArea.innerHTML = `${
+        showingProducts + showMoreLimit > productsLength
+          ? productsLength
+          : showingProducts + showMoreLimit
+      }/${productsLength} Products `;
+
+    if (showingProducts + showMoreLimit >= productsLength) return false;
+  });
+}
+
+function setTheTitleFixedTopIfInProductScoope(
+  productsContainer: HTMLDivElement
+) {
+  const uniecClass = productsContainer.getAttribute("data-un-class");
+  const title = document.querySelector(
+    `.${uniecClass} h1.big-title`
+  ) as HTMLHeadingElement;
+  const titleHeight = title?.clientHeight;
+
+  title?.remove();
+
+  // Create Title Holder For Pin Title In Page Top
+
+  const titleHolder = document.createElement("div");
+
+  titleHolder.classList.add("big-title", "title-holder", "bg-white");
+
+  if (title) titleHolder.appendChild(title);
+
+  productsContainer.prepend(titleHolder);
+
+  titleHolder.style.width = "100%";
+
+  function updateProductTitlePosition(titleHolder: HTMLDivElement) {
+    let scrollY: number = window.scrollY;
+
+    let offsetTop: number = productsContainer.offsetTop;
+
+    let titleHeight: number = title.clientHeight;
+
+    let productsHeight: number = productsContainer.clientHeight;
+
+    let inProductsScope: boolean =
+      scrollY >= offsetTop &&
+      scrollY < offsetTop + (productsHeight - titleHeight);
+    if (title) title.classList.toggle("position-fixed", inProductsScope);
+
+    if (inProductsScope) {
+      if (title)
+        title.classList.add(
+          "start-0",
+          "py-4",
+          "px-2",
+          "w-100",
+          "z-3",
+          "shadow-sm"
+        );
+
+      const computedMarginTop = window.getComputedStyle(title).marginTop;
+
+      if (title) title.style.top = `-${computedMarginTop}`;
+    } else {
+      if (title)
+        title.classList.remove(
+          "start-0",
+          "py-4",
+          "px-2",
+          "w-100",
+          "z-3",
+          "shadow-sm"
+        );
+    }
+  }
+  window.addEventListener("scroll", () =>
+    updateProductTitlePosition(titleHolder)
+  );
+}
+
+function showClickedPictureMoreDetails(productsHolder: HTMLDivElement) {
+  let productsArray = Array.from(productsHolder.children);
+  productsArray.forEach((card) => {
+    card.addEventListener("click", () => {
+      gallery.classList.remove("d-none");
+      gallery.classList.add("d-flex");
+
+      let clickedImage = card.children[0] as HTMLImageElement;
+
+      if (clickedImage.tagName == "IMG") selectedImage.src = clickedImage.src;
+
+      imageContainer.style.height = selectedImage.clientHeight + "px";
+    });
+  });
+}
 
 let imageContainer = document.querySelector(".gallery .image") as HTMLElement;
 
@@ -27,149 +247,6 @@ let closeGallery = document.querySelector(".gallery .tools .close");
 let share = document.querySelector(".gallery .tools .share");
 
 let whatsappShare = document.querySelector(".gallery .tools .whatsapp");
-
-products.forEach((ele: Element, index: number) => {
-  let prod = ele as HTMLElement;
-
-  let showMore = document.querySelector(`${prod.dataset.showmore}`);
-
-  let showLimit = 4;
-
-  let productsHolder = Array.from(
-    document.querySelectorAll(`.holder-${index + 1} .row > div`)
-  );
-
-  let productTitle = document.querySelector(
-    `.product > h1.big-title`
-  ) as HTMLElement;
-
-  productTitle?.classList.add("bg-white");
-
-  let titleHeight = productTitle?.clientHeight;
-
-  productTitle?.remove();
-
-  let titleHolder = document.createElement("div");
-
-  titleHolder.classList.add("title-holder", "big-title", "bg-white");
-
-  if (productTitle) {
-    titleHolder.appendChild(productTitle);
-  }
-
-  prod.prepend(titleHolder);
-
-  titleHolder.style.height = `${titleHeight}px`;
-
-  titleHolder.style.width = `100%`;
-
-  // Function to update the position of the product title
-
-  function updateProductTitlePosition() {
-    let scrollY: number = window.scrollY;
-
-    let offsetTop: number = prod.offsetTop;
-
-    // let titleHeight: number = productTitle.clientHeight;
-
-    let productsHeight: number = prod.clientHeight;
-
-    let inProductsScope: boolean =
-      scrollY >= offsetTop &&
-      scrollY < offsetTop + (productsHeight - titleHeight);
-
-    productTitle.classList.toggle("position-fixed", inProductsScope);
-
-    if (inProductsScope) {
-      productTitle.classList.add(
-        "start-0",
-        "py-4",
-        "px-2",
-        "w-100",
-        "z-3",
-        "shadow-sm"
-      );
-      const computedMarginTop = window.getComputedStyle(productTitle).marginTop;
-
-      productTitle.style.top = `-${computedMarginTop}`;
-    } else {
-      productTitle.classList.remove(
-        "start-0",
-        "py-4",
-        "px-2",
-        "w-100",
-        "z-3",
-        "shadow-sm"
-      );
-
-      productTitle.style.top = ` `;
-    }
-  }
-
-  // Event listener for scroll
-  window.addEventListener("scroll", updateProductTitlePosition);
-
-  showMore?.addEventListener("click", () => {
-    let productsHolder = Array.from(
-      document.querySelectorAll(`.holder-${index + 1} .row > div`)
-    );
-
-    let startShowingCards = Array.from(productsHolder).filter((crd) => {
-      let card = crd;
-      return !card.classList.contains("d-none");
-    }).length;
-
-    if (startShowingCards < productsHolder.length) {
-      productsHolder.forEach((e, i) => {
-        if (i >= startShowingCards && i < startShowingCards + showLimit) {
-          scalingShow(e as HTMLElement);
-
-          if (startShowingCards + showLimit >= productsHolder.length)
-            showMore?.classList.add("d-none");
-        }
-      });
-    } else {
-      showMore?.classList.add("d-none");
-    }
-
-    let endShowingCards = Array.from(productsHolder).filter((crd) => {
-      let card = crd;
-      return !card.classList.contains("d-none");
-    }).length;
-
-    let sizeLabel = document.querySelector(`${prod.dataset.sizelabel}`);
-    if (sizeLabel) {
-      sizeLabel.innerHTML =
-        `${endShowingCards} Of ${productsHolder.length}` || "0 Items ";
-    }
-  });
-
-  productsHolder.forEach((card, index) => {
-    if (index >= 8) {
-      card.classList.add("d-none");
-    }
-  });
-
-  let sizeLabel = document.querySelector(`${prod.dataset.sizelabel}`);
-
-  if (sizeLabel) {
-    sizeLabel.innerHTML =
-      ` All Items Is : ${productsHolder.length}` || "0 Items ";
-  }
-
-  productsHolder.forEach((card) => {
-    card.addEventListener("click", () => {
-      gallery.classList.remove("d-none");
-      gallery.classList.add("d-flex");
-
-      let clickedImage = card.children[0] as HTMLImageElement;
-
-      if (clickedImage.tagName == "IMG") selectedImage.src = clickedImage.src;
-
-      imageContainer.style.height = selectedImage.clientHeight + "px";
-    });
-  });
-});
 
 galleryCloseButton?.addEventListener("click", () => {
   gallery.classList.remove("d-flex");
@@ -219,79 +296,3 @@ function scalingShow(ele: HTMLElement) {
     ele.style.scale = "1 1";
   }, 0);
 }
-
-// card.addEventListener("click", () => {
-//   let img = card.firstElementChild as HTMLImageElement;
-
-//   gallery.classList.remove("d-none");
-
-//   gallery.classList.add("d-flex");
-
-//   imageContainer.style.maxWidth = "75%";
-
-//   // imageContainer.style.maxHeight = imageContainer.clientHeight + "px";
-
-//   imageContainer.style.overflow = "hidden";
-
-//   selectedImage.src = img.src;
-
-//   let scale = 1;
-//   let originX = 0;
-//   let originY = 0;
-
-//   selectedImage.addEventListener("wheel", (event) => {
-//     event.preventDefault();
-//     scale += event.deltaY * -0.01;
-//     scale = Math.min(Math.max(1, scale), 3);
-//     selectedImage.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
-//   });
-
-//   let isDragging = false;
-//   let startX: number, startY: number;
-
-//   selectedImage.addEventListener("mousedown", (event) => {
-//     isDragging = true;
-//     startX = event.clientX;
-//     startY = event.clientY;
-//     selectedImage.style.cursor = "grabbing";
-//   });
-
-//   selectedImage.addEventListener("mouseup", () => {
-//     isDragging = false;
-//     selectedImage.style.cursor = "grab";
-//   });
-
-//   selectedImage.addEventListener("mousemove", (event) => {
-//     if (isDragging) {
-//       let dx = (event.clientX - startX) / scale;
-//       let dy = (event.clientY - startY) / scale;
-//       originX += dx;
-//       originY += dy;
-//       startX = event.clientX;
-//       startY = event.clientY;
-//       selectedImage.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
-//     }
-//   });
-
-//   fullScreenImage?.addEventListener("click", () => {
-//     console.log("fullscreen");
-//     gallery.requestFullscreen();
-//     selectedImage.style.maxWidth = "90%";
-//   });
-
-//   zoomInImage?.addEventListener("click", () => {
-//     let currentScale = parseInt(window.getComputedStyle(selectedImage).scale);
-
-//     if (currentScale <= 10) {
-//       selectedImage.style.scale = ` ${currentScale * 2}`;
-//     }
-//   });
-
-//   zoomOutImage?.addEventListener("click", () => {
-//     let currentScale = parseInt(window.getComputedStyle(selectedImage).scale);
-
-//     if (currentScale > 1) {
-//       // selectedImage.style.scale = ` ${currentScale / 2}`;
-//     }
-//   });
-// });

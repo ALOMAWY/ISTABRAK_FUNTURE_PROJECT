@@ -12,6 +12,7 @@
   height: 100vh;
   background-attachment: fixed;
   z-index: -1;
+  overflow: hidden;
 
   .widgets-layer {
     position: relative;
@@ -74,7 +75,7 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     opacity: 0.45;
   }
 }
@@ -230,6 +231,22 @@
 
         a {
           margin: auto;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .about {
+    .container-75 {
+      .row {
+        .images-area {
+          .container-75 {
+            .row {
+              gap: 20px;
+            }
+          }
         }
       }
     }

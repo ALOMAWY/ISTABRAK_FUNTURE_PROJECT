@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard-Istabrak</title>
+
+    <link rel="stylesheet" href="css/library/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/library/all.min.css" />
+    <link rel="stylesheet" href="css/library/normalize.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/master.css" />
+
+    <!-- Get Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Get Font  -->
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="text-center fw-bold fs-1 text-uppercase">
+        Istabrak Dashboard
+      </h1>
+
+      <!-- Form to Add/Edit Products -->
+      <form id="product-form" class="d-flex flex-column gap-3">
+        <h3 class="">
+          Products
+          <span class="fs-6" id="products-length">0</span>
+        </h3>
+        <input type="hidden" id="product-id" />
+
+        <select
+          id="prod-type"
+          class="form-select form-select-lg mb-3 rounded-0 fs-5 p-3"
+          aria-label="Large select example"
+        >
+          <option value="berjer">Berjer</option>
+          <option value="koltuk">Koltuk</option>
+        </select>
+
+        <div class="input-group">
+          <input
+            class="w-100 p-2 rounded-0 border border-white-50 p-3 fs-5"
+            id="picture-name"
+            type="text"
+            placeholder="Picture Title"
+            required
+          />
+        </div>
+
+        <div class="btns d-flex align-items gap-3">
+          <button class="btn rounded-0 fs-4 w-75" type="submit">
+            Add New Product
+          </button>
+          <button
+            id="delete-all"
+            class="btn btn-outline-danger fs-4 w-25 rounded-0"
+            type="reset"
+          >
+            Delete All
+          </button>
+        </div>
+      </form>
+
+      <!-- List of Current Products -->
+      <div id="productList" class="my-5">
+        <h3>Current Products</h3>
+        <ol id="products-list" class="list-group list-group-numbered"></ol>
+        <button
+          id="downloadJson"
+          class="btn btn-outline-success mt-4 w-100 rounded-0 fs-4"
+        >
+          Download Products File
+        </button>
+      </div>
+    </div>
+    <script src="js/libs/bootstrap.bundle.min.js"></script>
+    <script src="js/libs/all.min.js"></script>
+    <script src="dist/index.js"></script>
+  </body>
+</html>
