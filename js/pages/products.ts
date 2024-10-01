@@ -1,6 +1,6 @@
 let products = Array.from(document.querySelectorAll(".products"));
 async function getProducts() {
-  let requset = await fetch("../../products/products.json");
+  let requset = await fetch(".././products/products.json");
 
   let data = await requset.json();
 

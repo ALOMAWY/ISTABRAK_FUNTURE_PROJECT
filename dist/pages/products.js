@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 let products = Array.from(document.querySelectorAll(".products"));
 function getProducts() {
     return __awaiter(this, void 0, void 0, function* () {
-        let requset = yield fetch("../../products/products.json");
+        let requset = yield fetch(".././products/products.json");
         let data = yield requset.json();
         console.log(Array.isArray(data));
         data.forEach((e) => {
@@ -20,7 +20,7 @@ function getProducts() {
             div.classList.add("product", "col-sm-12", "col-md-5", "col-lg-2", "border", "border-gray", "rounded-3");
             let img = document.createElement("img");
             img.classList.add("img-fluid", "show-text-x-50", "show-text-x-50", "rounded-4");
-            img.src = e.imgUrl;
+            img.src = e.imgPath;
             div.appendChild(img);
             (_a = document.getElementById(`${e.type}-prod`)) === null || _a === void 0 ? void 0 : _a.prepend(div);
         });
