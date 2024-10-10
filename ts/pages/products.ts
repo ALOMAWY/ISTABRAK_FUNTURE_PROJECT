@@ -1,20 +1,14 @@
-let products = Array.from(document.querySelectorAll(".products"));
-async function getProducts() {
-  let requset = await fetch(".././products/products.json");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 
-  let data = await requset.json();
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
-  console.log(Array.isArray(data));
+import { getAllDocuments, Product } from "./database.js";
 
-  interface product {
-    imgPath: string;
-    type: string;
-  }
+function displayProducts(products: Product[]) {
+  products.forEach((prod) => {
+    let product = document.createElement("div");
 
-  data.forEach((e: product) => {
-    let div = document.createElement("div");
-
-    div.classList.add(
+    product.classList.add(
       "product",
       "col-sm-12",
       "col-md-5",
@@ -33,32 +27,41 @@ async function getProducts() {
       "rounded-4"
     );
 
-    img.src = e.imgPath;
+    img.src = prod.imagePath;
 
-    div.appendChild(img);
+    product.appendChild(img);
 
-    document.getElementById(`${e.type}-prod`)?.prepend(div);
-  });
-
-  products.forEach((e) => {
-    let event = e as HTMLDivElement;
-    // Show All Products Length
-    getProductsNumber(event);
-
-    // display Specified Products In Page
-    displaySpecifiedNumberOfProduct(event);
-
-    // Add More Products On Click Show More Button
-    addShowingProductsNumber(event);
-
-    // Fix The Products Title In Top If It In Them Products Scoope !
-    setTheTitleFixedTopIfInProductScoope(event);
-
-    // Review The Clicked Image In Advance Scoope
-    showClickedPictureMoreDetails(event);
+    document.getElementById(`${prod.type}-prod`)?.prepend(product);
   });
 }
-getProducts();
+
+async function getProductsAndDisplayIt() {
+  try {
+    let products = (await getAllDocuments()) as Product[];
+
+    if (products) displayProducts(products);
+  } catch (error) {
+    console.log("Cannot Get Products ", error);
+  }
+}
+getProductsAndDisplayIt();
+const firebaseConfig = {
+  apiKey: "AIzaSyAQmrPfxjnuUA__bkqzZF-gsj4F1JLNoOg",
+  authDomain: "test-d09cc.firebaseapp.com",
+  projectId: "test-d09cc",
+  storageBucket: "test-d09cc.appspot.com",
+  messagingSenderId: "546762745938",
+  appId: "1:546762745938:web:f33924bbf13e82ddd6d78b",
+  measurementId: "G-4S9NPQVMK6",
+};
+
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+
+// Initialize Firestore
+const db = getFirestore(firebaseApp);
+
+let products = Array.from(document.querySelectorAll(".products"));
 
 function displaySpecifiedNumberOfProduct(productsHolder: HTMLDivElement) {
   let uniecClass = productsHolder.getAttribute("data-un-class");

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard-Istabrak</title>
 
-    <link rel="stylesheet" href="css/library/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/library/all.min.css" />
-    <link rel="stylesheet" href="css/library/normalize.css" />
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/master.css" />
+    <link rel="stylesheet" href="../css/library/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/library/all.min.css" />
+    <link rel="stylesheet" href="../css/library/normalize.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/master.css" />
 
     <!-- Get Font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,6 +20,13 @@
     />
 
     <!-- Get Font  -->
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.1/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.1/firebase-firestore.js"></script>
+    <script type="module" src="../dist/pages/database.js"></script>
+    <script type="module" src="../dist/pages/storage.js"></script>
+    <!-- <script src="./index.js"></script> -->
   </head>
 
   <body>
@@ -34,29 +41,53 @@
           Products
           <span class="fs-6" id="products-length">0</span>
         </h3>
-        <input type="hidden" id="product-id" />
+
+        <input id="productId" type="number" hidden />
 
         <select
-          id="prod-type"
+          id="product-type"
           class="form-select form-select-lg mb-3 rounded-0 fs-5 p-3"
           aria-label="Large select example"
+          required
         >
           <option value="berjer">Berjer</option>
           <option value="koltuk">Koltuk</option>
         </select>
 
-        <div class="input-group">
+        <div class="input-group mb-3">
           <input
             class="w-100 p-2 rounded-0 border border-white-50 p-3 fs-5"
-            id="picture-name"
+            id="product-model"
             type="text"
-            placeholder="Picture Title"
+            placeholder="Product Model"
             required
           />
         </div>
+        <div class="input-group">
+          <input
+            class="w-100 p-2 rounded-0 border border-white-50 p-3 fs-5"
+            id="product-discrioption"
+            type="text"
+            placeholder="Product Discription"
+            required
+          />
+        </div>
+        <div class="my-3">
+          <input
+            class="form-control p-3 rounded-0"
+            type="file"
+            id="product-choose-image"
+            multiple
+          />
+        </div>
+        <div id="error-messages"></div>
 
         <div class="btns d-flex align-items gap-3">
-          <button class="btn rounded-0 fs-4 w-75" type="submit">
+          <button
+            class="btn rounded-0 fs-4 w-75"
+            type="submit"
+            id="submit-form"
+          >
             Add New Product
           </button>
           <button
@@ -73,16 +104,11 @@
       <div id="productList" class="my-5">
         <h3>Current Products</h3>
         <ol id="products-list" class="list-group list-group-numbered"></ol>
-        <button
-          id="downloadJson"
-          class="btn btn-outline-success mt-4 w-100 rounded-0 fs-4"
-        >
-          Download Products File
-        </button>
       </div>
     </div>
-    <script src="js/libs/bootstrap.bundle.min.js"></script>
-    <script src="js/libs/all.min.js"></script>
-    <script src="dist/index.js"></script>
+
+    <script src="../ts/libs/bootstrap.bundle.min.js"></script>
+    <script src="../ts/libs/all.min.js"></script>
+    <script type="module" src="../dist/pages/dashboard.js" defer></script>
   </body>
 </html>

@@ -22,18 +22,18 @@
           }
         }
       }
-      .show-more {
-        width: fit-content;
-        background-color: var(--orange);
-        color: var(--light);
-        border: 2px solid var(--orange);
+    }
+    .show-more {
+      width: fit-content;
+      background-color: var(--orange);
+      color: var(--light);
+      border: 2px solid var(--orange);
 
-        &:hover {
-          background-color: var(--light);
-          color: var(--orange) !important;
-          letter-spacing: 4px;
-          font-weight: 900 !important;
-        }
+      &:hover {
+        background-color: var(--light);
+        color: var(--orange) !important;
+        letter-spacing: 4px;
+        font-weight: 900 !important;
       }
     }
   }

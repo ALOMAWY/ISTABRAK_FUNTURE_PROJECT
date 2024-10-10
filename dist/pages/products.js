@@ -1,45 +1,43 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-let products = Array.from(document.querySelectorAll(".products"));
-function getProducts() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let requset = yield fetch(".././products/products.json");
-        let data = yield requset.json();
-        console.log(Array.isArray(data));
-        data.forEach((e) => {
-            var _a;
-            let div = document.createElement("div");
-            div.classList.add("product", "col-sm-12", "col-md-5", "col-lg-2", "border", "border-gray", "rounded-3");
-            let img = document.createElement("img");
-            img.classList.add("img-fluid", "show-text-x-50", "show-text-x-50", "rounded-4");
-            img.src = e.imgPath;
-            div.appendChild(img);
-            (_a = document.getElementById(`${e.type}-prod`)) === null || _a === void 0 ? void 0 : _a.prepend(div);
-        });
-        products.forEach((e) => {
-            let event = e;
-            // Show All Products Length
-            getProductsNumber(event);
-            // display Specified Products In Page
-            displaySpecifiedNumberOfProduct(event);
-            // Add More Products On Click Show More Button
-            addShowingProductsNumber(event);
-            // Fix The Products Title In Top If It In Them Products Scoope !
-            setTheTitleFixedTopIfInProductScoope(event);
-            // Review The Clicked Image In Advance Scoope
-            showClickedPictureMoreDetails(event);
-        });
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { getAllDocuments } from "./database.js";
+function displayProducts(products) {
+    products.forEach((prod) => {
+        var _a;
+        let product = document.createElement("div");
+        product.classList.add("product", "col-sm-12", "col-md-5", "col-lg-2", "border", "border-gray", "rounded-3");
+        let img = document.createElement("img");
+        img.classList.add("img-fluid", "show-text-x-50", "show-text-x-50", "rounded-4");
+        img.src = prod.imagePath;
+        product.appendChild(img);
+        (_a = document.getElementById(`${prod.type}-prod`)) === null || _a === void 0 ? void 0 : _a.prepend(product);
     });
 }
-getProducts();
+async function getProductsAndDisplayIt() {
+    try {
+        let products = (await getAllDocuments());
+        if (products)
+            displayProducts(products);
+    }
+    catch (error) {
+        console.log("Cannot Get Products ", error);
+    }
+}
+getProductsAndDisplayIt();
+const firebaseConfig = {
+    apiKey: "AIzaSyAQmrPfxjnuUA__bkqzZF-gsj4F1JLNoOg",
+    authDomain: "test-d09cc.firebaseapp.com",
+    projectId: "test-d09cc",
+    storageBucket: "test-d09cc.appspot.com",
+    messagingSenderId: "546762745938",
+    appId: "1:546762745938:web:f33924bbf13e82ddd6d78b",
+    measurementId: "G-4S9NPQVMK6",
+};
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+// Initialize Firestore
+const db = getFirestore(firebaseApp);
+let products = Array.from(document.querySelectorAll(".products"));
 function displaySpecifiedNumberOfProduct(productsHolder) {
     let uniecClass = productsHolder.getAttribute("data-un-class");
     let productsContainer = Array.from(document.querySelectorAll(`.${uniecClass} .holder .row div.product`));

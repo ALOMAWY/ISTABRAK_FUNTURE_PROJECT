@@ -1,0 +1,22 @@
+input#picture-name {
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  button[type="submit"] {
+    background-color: var(--light);
+    border-color: var(--orange);
+    color: var(--orange);
+  
+    &:hover {
+      background-color: var(--orange);
+      color: var(--light);
+      border: 1px solid transparent;
+    }
+  }
+  
+  #products-length {
+    color: var(--orange);
+  }
+  

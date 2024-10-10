@@ -11,6 +11,9 @@
 
     <!-- Font Request -->
 
+    <script src="https://www.gstatic.com/firebasejs/10.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.1/firebase-firestore.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -134,7 +137,6 @@
       </section>
       <section
         class="container-75 products products-1"
-
         data-un-class="products-1"
       >
         <h1 class="big-title text-black show-text-y-50 bg-white">
@@ -142,35 +144,31 @@
           <span class="products-length fs-3 mb-auto">99</span>
         </h1>
 
-        <div class=" holder">
-          <div class="row gap-3" 
-          id="berjer-prod">
-          <div
-            class="show-more mx-auto my-5 p-3 text-uppercase fw-normal text-light cursor-pointer"
-          >
-            show more
-          </div>
+        <div class="holder">
+          <div class="row gap-3" id="berjer-prod"></div>
+        </div>
+        <div
+          class="show-more mx-auto my-5 p-3 text-uppercase fw-normal text-light cursor-pointer"
+        >
+          show more
         </div>
       </section>
       <section
-  
         class="container-75 products products-2"
         data-un-class="products-2"
       >
-        <h1 class="big-title text-black show-text-y-50  bg-white">
+        <h1 class="big-title text-black show-text-y-50 bg-white">
           Koltuk
           <span class="products-length fs-3 mb-auto">99</span>
         </h1>
 
-        <div class=" holder">
-          <div class="row gap-3"    
-           id="koltuk-prod">
-          
-          <div
-            class="show-more mx-auto my-5 p-3 text-uppercase fw-normal text-light cursor-pointer"
-          >
-            show more
-          </div>
+        <div class="holder">
+          <div class="row gap-3" id="koltuk-prod"></div>
+        </div>
+        <div
+          class="show-more mx-auto my-5 p-3 text-uppercase fw-normal text-light cursor-pointer"
+        >
+          show more
         </div>
       </section>
     </section>
@@ -331,9 +329,9 @@
       </div>
     </div>
 
-    <script src="../js/libs/bootstrap.bundle.min.js"></script>
-    <script src="../js/libs/all.min.js"></script>
+    <script src="../ts/libs/bootstrap.bundle.min.js"></script>
+    <script src="../ts/libs/all.min.js"></script>
     <script src="../dist/index.js"></script>
-    <script src="../dist/pages/products.js"></script>
+    <script type="module" src="../dist/pages/products.js"></script>
   </body>
 </html>

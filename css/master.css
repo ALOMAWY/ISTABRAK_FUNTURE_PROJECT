@@ -121,7 +121,7 @@
           filter: contrast(5);
   scale: 0.9;
 }
-.prod .container-75 .holder .show-more {
+.prod .container-75 .show-more {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -129,7 +129,7 @@
   color: var(--light);
   border: 2px solid var(--orange);
 }
-.prod .container-75 .holder .show-more:hover {
+.prod .container-75 .show-more:hover {
   background-color: var(--light);
   color: var(--orange) !important;
   letter-spacing: 4px;
@@ -213,6 +213,25 @@
     gap: 0;
   }
 }
+input#picture-name:focus {
+  outline: none;
+}
+
+button[type=submit] {
+  background-color: var(--light);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+button[type=submit]:hover {
+  background-color: var(--orange);
+  color: var(--light);
+  border: 1px solid transparent;
+}
+
+#products-length {
+  color: var(--orange);
+}
+
 /* animation  */
 /* animation  */
 /* Start Landing  */
