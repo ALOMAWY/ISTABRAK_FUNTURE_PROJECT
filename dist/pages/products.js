@@ -33,7 +33,15 @@ async function getProductsAndDisplayIt() {
             displayProducts(products);
     }
     catch (error) {
-        console.log("Cannot Get Products ", error);
+        console.error("No Product In Database", error);
+        productHolders.forEach((ele) => {
+            let holder = ele;
+            displaySpecifiedNumberOfProduct(holder);
+            getProductsNumber(holder);
+            addShowingProductsNumber(holder);
+            setTheTitleFixedTopIfInProductScoope(holder);
+            showClickedPictureMoreDetails(holder);
+        });
     }
 }
 function displaySpecifiedNumberOfProduct(productsHolder) {
@@ -123,7 +131,6 @@ function showClickedPictureMoreDetails(productsHolder) {
     const emptyArea = document.getElementById("low-opacity-area");
     products.forEach((card) => {
         card.addEventListener("click", (clickedProduct) => {
-            var _a, _b, _c;
             let clickedElement = clickedProduct.target;
             let productsData = productsArray;
             let productId;
@@ -133,21 +140,29 @@ function showClickedPictureMoreDetails(productsHolder) {
                 gallery.classList.add("h-100");
             }
             if (clickedElement.tagName == "IMG") {
-                selectedImage.src = clickedElement.src;
+                let privewImage = clickedElement;
+                selectedImage.src = privewImage.src;
                 let productDiv = clickedElement.parentNode;
                 productId = productDiv.getAttribute("prod-id") || "";
             }
             else if (clickedElement.tagName === "DIV") {
-                if (clickedElement.classList.contains("product"))
-                    selectedImage.src = clickedElement.children[0].src;
+                if (clickedElement.classList.contains("product")) {
+                    let privewImage = clickedElement.children[0];
+                    selectedImage.src = privewImage.src;
+                }
                 productId = clickedElement.getAttribute("prod-id") || "";
             }
             let productData = productsData.filter((prod) => prod.id == productId)[0];
             console.log(productData);
-            (_a = document.getElementById("prod-type")) === null || _a === void 0 ? void 0 : _a.innerHTML = productData.type;
-            (_b = document.getElementById("prod-model")) === null || _b === void 0 ? void 0 : _b.innerHTML = productData.model;
-            (_c = document.getElementById("prod-description")) === null || _c === void 0 ? void 0 : _c.innerHTML =
-                productData.description;
+            // Privew Product Detailes
+            let prodType = document.getElementById("prod-type");
+            let prodModel = document.getElementById("prod-model");
+            let prodDescription = document.getElementById("prod-description");
+            if (prodType && prodModel && prodDescription) {
+                prodType.innerHTML = productData.type;
+                prodModel.innerHTML = productData.model;
+                prodDescription.innerHTML = productData.description;
+            }
         });
     });
     emptyArea === null || emptyArea === void 0 ? void 0 : emptyArea.addEventListener("click", () => {

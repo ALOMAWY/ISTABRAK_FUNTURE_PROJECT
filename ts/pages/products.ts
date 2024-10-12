@@ -63,7 +63,21 @@ async function getProductsAndDisplayIt() {
 
     if (products) displayProducts(products);
   } catch (error) {
-    console.log("Cannot Get Products ", error);
+    console.error("No Product In Database", error);
+
+    productHolders.forEach((ele) => {
+      let holder = ele as HTMLDivElement;
+
+      displaySpecifiedNumberOfProduct(holder);
+
+      getProductsNumber(holder);
+
+      addShowingProductsNumber(holder);
+
+      setTheTitleFixedTopIfInProductScoope(holder);
+
+      showClickedPictureMoreDetails(holder);
+    });
   }
 }
 
@@ -232,14 +246,17 @@ function showClickedPictureMoreDetails(productsHolder: HTMLDivElement) {
       }
 
       if (clickedElement.tagName == "IMG") {
-        selectedImage.src = clickedElement.src;
+        let privewImage = clickedElement as HTMLImageElement;
+        selectedImage.src = privewImage.src;
 
         let productDiv = clickedElement.parentNode as HTMLDivElement;
 
         productId = productDiv.getAttribute("prod-id") || "";
       } else if (clickedElement.tagName === "DIV") {
-        if (clickedElement.classList.contains("product"))
-          selectedImage.src = clickedElement.children[0].src;
+        if (clickedElement.classList.contains("product")) {
+          let privewImage = clickedElement.children[0] as HTMLImageElement;
+          selectedImage.src = privewImage.src;
+        }
 
         productId = clickedElement.getAttribute("prod-id") || "";
       }
@@ -247,10 +264,19 @@ function showClickedPictureMoreDetails(productsHolder: HTMLDivElement) {
 
       console.log(productData);
 
-      document.getElementById("prod-type")?.innerHTML = productData.type;
-      document.getElementById("prod-model")?.innerHTML = productData.model;
-      document.getElementById("prod-description")?.innerHTML =
-        productData.description;
+      // Privew Product Detailes
+
+      let prodType = document.getElementById("prod-type");
+      let prodModel = document.getElementById("prod-model");
+      let prodDescription = document.getElementById("prod-description");
+
+      if (prodType && prodModel && prodDescription) {
+        prodType.innerHTML = productData.type;
+
+        prodModel.innerHTML = productData.model;
+
+        prodDescription.innerHTML = productData.description;
+      }
     });
   });
 
