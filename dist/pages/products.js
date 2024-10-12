@@ -1,21 +1,34 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 import { getAllDocuments } from "./database.js";
+window.addEventListener("load", () => {
+    getProductsAndDisplayIt();
+});
+let productHolders = Array.from(document.querySelectorAll(".products"));
+let productsArray;
 function displayProducts(products) {
     products.forEach((prod) => {
         var _a;
         let product = document.createElement("div");
         product.classList.add("product", "col-sm-12", "col-md-5", "col-lg-2", "border", "border-gray", "rounded-3");
+        product.setAttribute("prod-id", prod.id);
         let img = document.createElement("img");
         img.classList.add("img-fluid", "show-text-x-50", "show-text-x-50", "rounded-4");
         img.src = prod.imagePath;
         product.appendChild(img);
         (_a = document.getElementById(`${prod.type}-prod`)) === null || _a === void 0 ? void 0 : _a.prepend(product);
     });
+    productHolders.forEach((ele) => {
+        let holder = ele;
+        displaySpecifiedNumberOfProduct(holder);
+        getProductsNumber(holder);
+        addShowingProductsNumber(holder);
+        setTheTitleFixedTopIfInProductScoope(holder);
+        showClickedPictureMoreDetails(holder);
+    });
 }
 async function getProductsAndDisplayIt() {
     try {
         let products = (await getAllDocuments());
+        productsArray = products;
         if (products)
             displayProducts(products);
     }
@@ -23,21 +36,6 @@ async function getProductsAndDisplayIt() {
         console.log("Cannot Get Products ", error);
     }
 }
-getProductsAndDisplayIt();
-const firebaseConfig = {
-    apiKey: "AIzaSyAQmrPfxjnuUA__bkqzZF-gsj4F1JLNoOg",
-    authDomain: "test-d09cc.firebaseapp.com",
-    projectId: "test-d09cc",
-    storageBucket: "test-d09cc.appspot.com",
-    messagingSenderId: "546762745938",
-    appId: "1:546762745938:web:f33924bbf13e82ddd6d78b",
-    measurementId: "G-4S9NPQVMK6",
-};
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-// Initialize Firestore
-const db = getFirestore(firebaseApp);
-let products = Array.from(document.querySelectorAll(".products"));
 function displaySpecifiedNumberOfProduct(productsHolder) {
     let uniecClass = productsHolder.getAttribute("data-un-class");
     let productsContainer = Array.from(document.querySelectorAll(`.${uniecClass} .holder .row div.product`));
@@ -102,8 +100,7 @@ function setTheTitleFixedTopIfInProductScoope(productsContainer) {
         let offsetTop = productsContainer.offsetTop;
         let titleHeight = title.clientHeight;
         let productsHeight = productsContainer.clientHeight;
-        let inProductsScope = scrollY >= offsetTop &&
-            scrollY < offsetTop + (productsHeight - titleHeight);
+        let inProductsScope = scrollY >= offsetTop && scrollY < offsetTop + productsHeight;
         if (title)
             title.classList.toggle("position-fixed", inProductsScope);
         if (inProductsScope) {
@@ -121,60 +118,53 @@ function setTheTitleFixedTopIfInProductScoope(productsContainer) {
     window.addEventListener("scroll", () => updateProductTitlePosition(titleHolder));
 }
 function showClickedPictureMoreDetails(productsHolder) {
-    let productsArray = Array.from(productsHolder.children);
-    productsArray.forEach((card) => {
-        card.addEventListener("click", () => {
-            gallery.classList.remove("d-none");
-            gallery.classList.add("d-flex");
-            let clickedImage = card.children[0];
-            if (clickedImage.tagName == "IMG")
-                selectedImage.src = clickedImage.src;
-            imageContainer.style.height = selectedImage.clientHeight + "px";
+    let uniecClass = productsHolder.getAttribute("data-un-class");
+    let products = document.querySelectorAll(`.${uniecClass} .holder .row`);
+    const emptyArea = document.getElementById("low-opacity-area");
+    products.forEach((card) => {
+        card.addEventListener("click", (clickedProduct) => {
+            var _a, _b, _c;
+            let clickedElement = clickedProduct.target;
+            let productsData = productsArray;
+            let productId;
+            console.log(clickedElement);
+            if (gallery.classList.contains("h-0")) {
+                gallery.classList.remove("h-0");
+                gallery.classList.add("h-100");
+            }
+            if (clickedElement.tagName == "IMG") {
+                selectedImage.src = clickedElement.src;
+                let productDiv = clickedElement.parentNode;
+                productId = productDiv.getAttribute("prod-id") || "";
+            }
+            else if (clickedElement.tagName === "DIV") {
+                if (clickedElement.classList.contains("product"))
+                    selectedImage.src = clickedElement.children[0].src;
+                productId = clickedElement.getAttribute("prod-id") || "";
+            }
+            let productData = productsData.filter((prod) => prod.id == productId)[0];
+            console.log(productData);
+            (_a = document.getElementById("prod-type")) === null || _a === void 0 ? void 0 : _a.innerHTML = productData.type;
+            (_b = document.getElementById("prod-model")) === null || _b === void 0 ? void 0 : _b.innerHTML = productData.model;
+            (_c = document.getElementById("prod-description")) === null || _c === void 0 ? void 0 : _c.innerHTML =
+                productData.description;
         });
     });
+    emptyArea === null || emptyArea === void 0 ? void 0 : emptyArea.addEventListener("click", () => {
+        if (!gallery.classList.contains("h-0")) {
+            gallery.classList.add("h-0");
+            gallery.classList.remove("h-100");
+        }
+    });
 }
-let imageContainer = document.querySelector(".gallery .image");
-let gallery = document.getElementById("gallery");
 let selectedImage = document.getElementById("selected-image");
-selectedImage.style.scale = `1`;
+let gallery = document.getElementById("gallery");
 let galleryCloseButton = document.querySelector(".gallery .close-gallery");
-let toolsBox = document.querySelector(".gallery .tools");
-let fullScreenImage = document.querySelector(".gallery .tools .full-screen");
-let zoomInImage = document.querySelector(".gallery .tools .zoom-in");
-let zoomOutImage = document.querySelector(".gallery .tools .zoom-out");
 let closeGallery = document.querySelector(".gallery .tools .close");
-let share = document.querySelector(".gallery .tools .share");
-let whatsappShare = document.querySelector(".gallery .tools .whatsapp");
 galleryCloseButton === null || galleryCloseButton === void 0 ? void 0 : galleryCloseButton.addEventListener("click", () => {
-    gallery.classList.remove("d-flex");
-    gallery.classList.add("d-none");
-    document.exitFullscreen();
-});
-fullScreenImage === null || fullScreenImage === void 0 ? void 0 : fullScreenImage.addEventListener("click", () => {
-    if (fullScreenImage.dataset.fullscreen == "true") {
-        fullScreenImage.dataset.fullscreen = "false";
-        fullScreenImage.innerHTML = `<i class="fa-solid fa-expand"></i>`;
-        document.exitFullscreen();
-    }
-    else {
-        fullScreenImage.dataset.fullscreen = "true";
-        gallery.requestFullscreen();
-        fullScreenImage.innerHTML = `<i class="fa-solid fa-compress"></i>`;
-    }
-});
-zoomInImage === null || zoomInImage === void 0 ? void 0 : zoomInImage.addEventListener("click", () => {
-    let currentScale = parseInt(window.getComputedStyle(selectedImage).scale);
-    console.log(currentScale);
-    if (currentScale <= 4) {
-        selectedImage.style.scale = `${currentScale * 2}`;
-    }
-});
-zoomOutImage === null || zoomOutImage === void 0 ? void 0 : zoomOutImage.addEventListener("click", () => {
-    let currentScale = parseInt(window.getComputedStyle(selectedImage).scale);
-    console.log(currentScale);
-    if (currentScale > 1) {
-        selectedImage.style.scale = `${currentScale / 2}`;
-    }
+    gallery.classList.remove("w-25");
+    gallery.classList.remove("w-50");
+    gallery.classList.add("w-0");
 });
 function scalingShow(ele) {
     ele.style.scale = "0 1";

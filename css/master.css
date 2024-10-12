@@ -139,80 +139,74 @@
 .gallery {
   z-index: 10;
 }
+.gallery .product-area {
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 4rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.gallery .low-opacity-area {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
 .gallery .image {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   width: 70%;
   position: relative;
-  border-radius: 20px;
 }
 .gallery .image img {
   width: 100%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  border-radius: 20px;
 }
-.gallery .image::before {
-  content: "";
-  position: absolute;
-  border-radius: 20px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  -webkit-box-shadow: 0px 0px 20px black inset;
-          box-shadow: 0px 0px 20px black inset;
-  z-index: 2;
+.gallery .info {
+  width: 75%;
+  padding: 0;
+  margin: 3rem auto;
 }
-.gallery div:has(> svg) {
-  font-size: 1.5rem;
-  color: var(--light);
-  opacity: 0.7;
+.gallery .info li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-items: start;
 }
-.gallery div:has(> svg):hover {
-  color: var(--orange);
-}
-.gallery .tools {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 100%;
-  gap: 4rem;
-}
-.gallery .tools div svg {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
+.gallery .info li p:first-child {
+  width: 50%;
 }
 
 @media (max-width: 991px) {
-  .gallery {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+  .gallery .product-area {
+    width: 60%;
   }
-  .gallery .image {
-    margin: auto;
-    width: 95% !important;
-  }
-  .gallery .tools {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: justify !important;
-        -ms-flex-pack: justify !important;
-            justify-content: space-between !important;
-    width: 100%;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
-    gap: 0;
+  .gallery .low-opacity-area {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
   }
 }
+.w-0 {
+  width: 0px !important;
+}
+
+.h-0 {
+  height: 0px !important;
+}
+
 input#picture-name:focus {
   outline: none;
 }

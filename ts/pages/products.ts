@@ -1,8 +1,12 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
-
 import { getAllDocuments, Product } from "./database.js";
+
+window.addEventListener("load", () => {
+  getProductsAndDisplayIt();
+});
+
+let productHolders = Array.from(document.querySelectorAll(".products"));
+
+let productsArray: Product[];
 
 function displayProducts(products: Product[]) {
   products.forEach((prod) => {
@@ -17,6 +21,8 @@ function displayProducts(products: Product[]) {
       "border-gray",
       "rounded-3"
     );
+
+    product.setAttribute("prod-id", prod.id);
 
     let img = document.createElement("img") as HTMLImageElement;
 
@@ -33,35 +39,33 @@ function displayProducts(products: Product[]) {
 
     document.getElementById(`${prod.type}-prod`)?.prepend(product);
   });
+
+  productHolders.forEach((ele) => {
+    let holder = ele as HTMLDivElement;
+
+    displaySpecifiedNumberOfProduct(holder);
+
+    getProductsNumber(holder);
+
+    addShowingProductsNumber(holder);
+
+    setTheTitleFixedTopIfInProductScoope(holder);
+
+    showClickedPictureMoreDetails(holder);
+  });
 }
 
 async function getProductsAndDisplayIt() {
   try {
     let products = (await getAllDocuments()) as Product[];
 
+    productsArray = products;
+
     if (products) displayProducts(products);
   } catch (error) {
     console.log("Cannot Get Products ", error);
   }
 }
-getProductsAndDisplayIt();
-const firebaseConfig = {
-  apiKey: "AIzaSyAQmrPfxjnuUA__bkqzZF-gsj4F1JLNoOg",
-  authDomain: "test-d09cc.firebaseapp.com",
-  projectId: "test-d09cc",
-  storageBucket: "test-d09cc.appspot.com",
-  messagingSenderId: "546762745938",
-  appId: "1:546762745938:web:f33924bbf13e82ddd6d78b",
-  measurementId: "G-4S9NPQVMK6",
-};
-
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-
-// Initialize Firestore
-const db = getFirestore(firebaseApp);
-
-let products = Array.from(document.querySelectorAll(".products"));
 
 function displaySpecifiedNumberOfProduct(productsHolder: HTMLDivElement) {
   let uniecClass = productsHolder.getAttribute("data-un-class");
@@ -172,8 +176,8 @@ function setTheTitleFixedTopIfInProductScoope(
     let productsHeight: number = productsContainer.clientHeight;
 
     let inProductsScope: boolean =
-      scrollY >= offsetTop &&
-      scrollY < offsetTop + (productsHeight - titleHeight);
+      scrollY >= offsetTop && scrollY < offsetTop + productsHeight;
+
     if (title) title.classList.toggle("position-fixed", inProductsScope);
 
     if (inProductsScope) {
@@ -208,88 +212,70 @@ function setTheTitleFixedTopIfInProductScoope(
 }
 
 function showClickedPictureMoreDetails(productsHolder: HTMLDivElement) {
-  let productsArray = Array.from(productsHolder.children);
-  productsArray.forEach((card) => {
-    card.addEventListener("click", () => {
-      gallery.classList.remove("d-none");
-      gallery.classList.add("d-flex");
+  let uniecClass = productsHolder.getAttribute("data-un-class");
 
-      let clickedImage = card.children[0] as HTMLImageElement;
+  let products = document.querySelectorAll(`.${uniecClass} .holder .row`);
 
-      if (clickedImage.tagName == "IMG") selectedImage.src = clickedImage.src;
+  const emptyArea = document.getElementById("low-opacity-area");
 
-      imageContainer.style.height = selectedImage.clientHeight + "px";
+  products.forEach((card) => {
+    card.addEventListener("click", (clickedProduct) => {
+      let clickedElement = clickedProduct.target as HTMLElement;
+      let productsData: Product[] = productsArray;
+      let productId: string;
+
+      console.log(clickedElement);
+
+      if (gallery.classList.contains("h-0")) {
+        gallery.classList.remove("h-0");
+        gallery.classList.add("h-100");
+      }
+
+      if (clickedElement.tagName == "IMG") {
+        selectedImage.src = clickedElement.src;
+
+        let productDiv = clickedElement.parentNode as HTMLDivElement;
+
+        productId = productDiv.getAttribute("prod-id") || "";
+      } else if (clickedElement.tagName === "DIV") {
+        if (clickedElement.classList.contains("product"))
+          selectedImage.src = clickedElement.children[0].src;
+
+        productId = clickedElement.getAttribute("prod-id") || "";
+      }
+      let productData = productsData.filter((prod) => prod.id == productId)[0];
+
+      console.log(productData);
+
+      document.getElementById("prod-type")?.innerHTML = productData.type;
+      document.getElementById("prod-model")?.innerHTML = productData.model;
+      document.getElementById("prod-description")?.innerHTML =
+        productData.description;
     });
   });
+
+  emptyArea?.addEventListener("click", () => {
+    if (!gallery.classList.contains("h-0")) {
+      gallery.classList.add("h-0");
+      gallery.classList.remove("h-100");
+    }
+  });
 }
-
-let imageContainer = document.querySelector(".gallery .image") as HTMLElement;
-
-let gallery = document.getElementById("gallery") as HTMLElement;
-
 let selectedImage = document.getElementById(
   "selected-image"
 ) as HTMLImageElement;
 
-selectedImage.style.scale = `1`;
+let gallery = document.getElementById("gallery") as HTMLElement;
 
 let galleryCloseButton = document.querySelector(".gallery .close-gallery");
 
-let toolsBox = document.querySelector(".gallery .tools");
-
-let fullScreenImage = document.querySelector(
-  ".gallery .tools .full-screen"
-) as HTMLElement;
-
-let zoomInImage = document.querySelector(".gallery .tools .zoom-in");
-
-let zoomOutImage = document.querySelector(".gallery .tools .zoom-out");
-
 let closeGallery = document.querySelector(".gallery .tools .close");
 
-let share = document.querySelector(".gallery .tools .share");
-
-let whatsappShare = document.querySelector(".gallery .tools .whatsapp");
-
 galleryCloseButton?.addEventListener("click", () => {
-  gallery.classList.remove("d-flex");
+  gallery.classList.remove("w-25");
+  gallery.classList.remove("w-50");
 
-  gallery.classList.add("d-none");
-
-  document.exitFullscreen();
-});
-
-fullScreenImage?.addEventListener("click", () => {
-  if (fullScreenImage.dataset.fullscreen == "true") {
-    fullScreenImage.dataset.fullscreen = "false";
-
-    fullScreenImage.innerHTML = `<i class="fa-solid fa-expand"></i>`;
-
-    document.exitFullscreen();
-  } else {
-    fullScreenImage.dataset.fullscreen = "true";
-
-    gallery.requestFullscreen();
-
-    fullScreenImage.innerHTML = `<i class="fa-solid fa-compress"></i>`;
-  }
-});
-
-zoomInImage?.addEventListener("click", () => {
-  let currentScale = parseInt(window.getComputedStyle(selectedImage).scale);
-  console.log(currentScale);
-  if (currentScale <= 4) {
-    selectedImage.style.scale = `${currentScale * 2}`;
-  }
-});
-
-zoomOutImage?.addEventListener("click", () => {
-  let currentScale = parseInt(window.getComputedStyle(selectedImage).scale);
-
-  console.log(currentScale);
-  if (currentScale > 1) {
-    selectedImage.style.scale = `${currentScale / 2}`;
-  }
+  gallery.classList.add("w-0");
 });
 
 function scalingShow(ele: HTMLElement) {
