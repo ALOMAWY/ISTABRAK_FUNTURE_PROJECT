@@ -184,7 +184,6 @@ function clickToRemove() {
       let currentUpdatingProductId: string =
         productItem.getAttribute("product-id") || "";
 
-      console.log(currentUpdatingProductId);
 
       try {
         await deleteDocument(currentUpdatingProductId);
@@ -319,7 +318,6 @@ form?.addEventListener("submit", (e) => {
 // Load The Product When The Page Loaded
 
 window.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM fully loaded, calling getProdcutsAndDisplayIt...");
   getProdcutsAndDisplayIt();
 });
 
@@ -344,8 +342,9 @@ async function getProdcutsAndDisplayIt() {
   try {
     let productsArray =
       ((await getAllDocuments()) as Product[]) || ([] as Product[]);
-
-    productsArrayLength = productsArray.length;
+    
+    if (Array.isArray(productsArray))
+      productsArrayLength = productsArray.length;
 
     console.log("products Number Is :", productsArrayLength);
 
@@ -356,6 +355,7 @@ async function getProdcutsAndDisplayIt() {
   } catch (error) {
     console.log("No Products In Data Base To Show 😊");
   }
+  console.log("Data Fetched No Other Data");
 }
 
 // getProdcutsAndDisplayIt()

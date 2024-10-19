@@ -2,13 +2,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebas
 import { getFirestore, collection, setDoc, getDoc, getDocs, deleteDoc, updateDoc, doc, } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAQmrPfxjnuUA__bkqzZF-gsj4F1JLNoOg",
-    authDomain: "test-d09cc.firebaseapp.com",
-    projectId: "test-d09cc",
-    storageBucket: "test-d09cc.appspot.com",
-    messagingSenderId: "546762745938",
-    appId: "1:546762745938:web:f33924bbf13e82ddd6d78b",
-    measurementId: "G-4S9NPQVMK6",
+    apiKey: "AIzaSyDnccB9KmPB3Vi1u_RSGCicwsbxI_o6WZQ",
+    authDomain: "istabrak-funture-projcet.firebaseapp.com",
+    projectId: "istabrak-funture-projcet",
+    storageBucket: "istabrak-funture-projcet.appspot.com",
+    messagingSenderId: "806552618866",
+    appId: "1:806552618866:web:32d09cf5f695c896d63feb",
+    measurementId: "G-8W9NC0J4WC",
 };
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);

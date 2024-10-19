@@ -11,13 +11,8 @@
     width: 100% !important;
   }
   .identification .container-75 .row .values .info div {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 }
 .statistics {
@@ -56,8 +51,7 @@
     content: "";
     position: absolute;
     left: 50%;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 }
 .map .google-map iframe {
@@ -79,8 +73,6 @@
   border: none;
 }
 .contact-form form #send-massage {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   background-color: var(--orange);
 }
@@ -107,23 +99,20 @@
   color: var(--orange);
 }
 .prod .container-75 .holder .row div {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   cursor: pointer;
   padding: 10px;
 }
-.prod .container-75 .holder .row div img:hover {
-  -webkit-filter: contrast(5);
-          filter: contrast(5);
+.prod .container-75 .holder .row div:not(.fake-product) img:hover {
+  filter: contrast(5);
   scale: 0.9;
 }
+.prod .container-75 .holder .row div.fake-product {
+  cursor: no-drop;
+  opacity: 0.1;
+}
 .prod .container-75 .show-more {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   background-color: var(--orange);
   color: var(--light);
@@ -136,67 +125,58 @@
   font-weight: 900 !important;
 }
 
-.gallery {
+.privew {
   z-index: 10;
 }
-.gallery .product-area {
-  width: 25%;
-  display: -webkit-box;
-  display: -ms-flexbox;
+.privew .product-area {
+  width: 35%;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   gap: 4rem;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
-.gallery .low-opacity-area {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+.privew .low-opacity-area {
+  flex: 1;
 }
-.gallery .image {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
+.privew .image {
   height: fit-content;
   width: 70%;
   position: relative;
 }
-.gallery .image img {
+.privew .image img {
   width: 100%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
 }
-.gallery .info {
-  width: 75%;
+.privew .info {
+  width: 100%;
   padding: 0;
   margin: 3rem auto;
 }
-.gallery .info li {
-  display: -webkit-box;
-  display: -ms-flexbox;
+.privew .info li {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   justify-items: start;
+  padding: 7.6px;
 }
-.gallery .info li p:first-child {
+.privew .info li:nth-child(odd) {
+  background-color: #f7f7f9;
+}
+.privew .info li p {
   width: 50%;
+  margin: 0px;
+}
+.privew .info li p:first-child {
+  margin-left: 20px;
 }
 
 @media (max-width: 991px) {
-  .gallery .product-area {
+  .privew .product-area {
     width: 60%;
   }
-  .gallery .low-opacity-area {
-    -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
+  .privew .low-opacity-area {
+    flex: 1;
   }
 }
 .w-0 {
@@ -245,23 +225,14 @@ button[type=submit]:hover {
   top: 20%;
 }
 .landing-screen .widgets-layer .text-area {
-  -webkit-animation: show-landing-text 0.38s linear 1 backwards;
-          animation: show-landing-text 0.38s linear 1 backwards;
+  animation: show-landing-text 0.38s linear 1 backwards;
 }
 .landing-screen .widgets-layer .text-area h3 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 .landing-screen .widgets-layer .text-area h3 span {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 .landing-screen .widgets-layer .text-area h3 .large-text {
@@ -281,21 +252,14 @@ button[type=submit]:hover {
   font-size: 6rem;
 }
 .landing-screen .widgets-layer .widgets .widget {
-  -ms-flex-preferred-size: 50%;
-      flex-basis: 50%;
+  flex-basis: 50%;
   height: 25%;
-  -webkit-transform: scaleX(0);
-          transform: scaleX(0);
-  -webkit-transform-origin: left;
-          transform-origin: left;
-  -webkit-animation: scale-width 0.4s ease-out 1 forwards;
-          animation: scale-width 0.4s ease-out 1 forwards;
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: scale-width 0.4s ease-out 1 forwards;
+  animation-delay: 0s;
 }
 .landing-screen .widgets-layer .widgets .widget h2 a {
-  width: -webkit-min-content;
-  width: -moz-min-content;
   width: min-content;
 }
 .landing-screen .widgets-layer .widgets .widget.widget-hide {
@@ -313,34 +277,12 @@ button[type=submit]:hover {
 }
 
 /* Landing Animations  */
-@-webkit-keyframes scale-width {
-  0% {
-    -webkit-transform: scaleX(0);
-            transform: scaleX(0);
-  }
-  100% {
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-}
 @keyframes scale-width {
   0% {
-    -webkit-transform: scaleX(0);
-            transform: scaleX(0);
+    transform: scaleX(0);
   }
   100% {
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-}
-@-webkit-keyframes show-landing-text {
-  from {
-    opacity: 0.6;
-    scale: 0.7;
-  }
-  to {
-    opacity: 1;
-    scale: 1;
+    transform: scaleX(1);
   }
 }
 @keyframes show-landing-text {
@@ -367,8 +309,7 @@ button[type=submit]:hover {
     top: 5%;
   }
   .landing-screen .widgets-layer .text-area {
-    -webkit-animation: show-landing-text 0.38s linear 1 backwards;
-            animation: show-landing-text 0.38s linear 1 backwards;
+    animation: show-landing-text 0.38s linear 1 backwards;
   }
   .landing-screen .widgets-layer .text-area h3 .large-text {
     font-size: 5rem;
@@ -390,19 +331,11 @@ button[type=submit]:hover {
     font-size: 0.8rem !important;
   }
   .landing-screen .widgets-layer .text-area h3 {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
   .landing-screen .widgets-layer .text-area h3 span {
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
     width: fit-content;
   }
   .landing-screen .widgets-layer .text-area h3 .large-text {
@@ -475,8 +408,7 @@ button[type=submit]:hover {
   width: 67%;
   top: calc(100% - 150px);
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
   padding: 3rem;
 }
 .customers-talk .views .container-75 .gallery-site .content-holder .info .person .person-logo {
@@ -484,9 +416,7 @@ button[type=submit]:hover {
 }
 .customers-talk .views .container-75 .buttons {
   width: 100%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 .customers-talk .views .container-75 .buttons span {
   width: 70px;
@@ -512,10 +442,7 @@ button[type=submit]:hover {
     width: 100%;
   }
   .customers-talk .views .container-75 .gallery-site .content-holder .info {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
+    flex-direction: column-reverse;
     width: 100%;
     top: 100%;
     padding: 1rem;
@@ -536,8 +463,7 @@ button[type=submit]:hover {
     position: absolute;
     bottom: -400px;
     left: 50%;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
   }
   .customers-talk .views .container-75 .buttons span {
     width: 70px;
@@ -547,8 +473,7 @@ button[type=submit]:hover {
 /* End Customers View  */
 /* Start Products  */
 .our-product .products .row div img {
-  -webkit-box-shadow: 0 0 20px 0px rgb(146, 144, 144);
-          box-shadow: 0 0 20px 0px rgb(146, 144, 144);
+  box-shadow: 0 0 20px 0px rgb(146, 144, 144);
 }
 .our-product .products .row div h3 {
   color: var(--skyblue);
@@ -562,9 +487,7 @@ button[type=submit]:hover {
   position: absolute;
   bottom: -30px;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  -webkit-transition: 0.5s;
+  transform: translateX(-50%);
   transition: 0.5s;
 }
 .our-product .products .row div h3:hover {
@@ -586,12 +509,8 @@ button[type=submit]:hover {
 }
 
 * {
-  -webkit-transition: 0.3s;
   transition: 0.3s;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 
 a {
@@ -619,8 +538,7 @@ header nav div svg {
 
 .menu-area {
   opacity: 0;
-  -webkit-backdrop-filter: blur(25px);
-          backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
 }
 .menu-area .close-menu {
   top: 100px;
@@ -645,18 +563,10 @@ header nav div svg {
 
 .main-btn {
   display: block;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   background-color: var(--dark);
   color: var(--light);
 }
@@ -763,14 +673,6 @@ header nav div svg {
   }
 }
 /* Start Discover */
-@-webkit-keyframes show-black-bg {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
-}
 @keyframes show-black-bg {
   from {
     width: 100%;
@@ -813,8 +715,7 @@ header nav div svg {
     width: 100%;
   }
   .discover .container-75 .row div {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
   }
   .discover .container-75 .row div p {
     width: 100%;
@@ -827,8 +728,6 @@ footer {
   padding: 7rem;
 }
 footer .row .info h3 {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 footer .row .info h3::before {
@@ -841,14 +740,9 @@ footer .row .info h3::before {
   top: -20px;
 }
 footer .row div ul .show-products p {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   width: 100%;
 }
 footer .row div ul .show-products p span:not(.plus-icon) {
@@ -858,21 +752,13 @@ footer .row div ul .show-products p span.plus-icon {
   position: relative;
   width: 20px;
   height: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-transform-origin: center;
-          transform-origin: center;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
 }
 footer .row div ul .show-products:hover p span.plus-icon {
-  -webkit-transform: rotate(85deg);
-          transform: rotate(85deg);
+  transform: rotate(85deg);
 }
 
 @media (max-width: 767px) {
@@ -901,8 +787,7 @@ footer .row div ul .show-products:hover p span.plus-icon {
     position: absolute;
     top: -20px;
     left: 50%;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
   }
   footer .row div {
     width: 40%;
@@ -917,12 +802,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
     display: block;
   }
   footer .row div ul .show-products p {
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: center;
+    align-items: center;
   }
   footer .row div ul .show-products p span:not(.plus-icon) {
     padding-right: 10px;
@@ -948,20 +829,9 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(90vh 100px);
-}
-
-@-webkit-keyframes background-altLight-effect {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
 }
 
 @keyframes background-altLight-effect {
@@ -981,20 +851,9 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(90vh 100px);
-}
-
-@-webkit-keyframes background-black-effect {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
 }
 
 @keyframes background-black-effect {
@@ -1014,20 +873,9 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(90vh 100px);
-}
-
-@-webkit-keyframes background-light-effect {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
 }
 
 @keyframes background-light-effect {
@@ -1047,10 +895,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(80vh 100px);
 }
 
@@ -1071,10 +917,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(80vh 100px);
 }
 
@@ -1095,10 +939,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(80vh 100px);
 }
 
@@ -1119,10 +961,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(70vh 100px);
 }
 
@@ -1143,10 +983,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(70vh 100px);
 }
 
@@ -1167,10 +1005,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(70vh 100px);
 }
 
@@ -1191,10 +1027,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(60vh 100px);
 }
 
@@ -1215,10 +1049,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(60vh 100px);
 }
 
@@ -1239,10 +1071,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(60vh 100px);
 }
 
@@ -1263,10 +1093,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(50vh 100px);
 }
 
@@ -1287,10 +1115,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(50vh 100px);
 }
 
@@ -1311,10 +1137,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(50vh 100px);
 }
 
@@ -1335,10 +1159,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(40vh 100px);
 }
 
@@ -1359,10 +1181,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(40vh 100px);
 }
 
@@ -1383,10 +1203,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(40vh 100px);
 }
 
@@ -1407,10 +1225,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(30vh 100px);
 }
 
@@ -1431,10 +1247,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(30vh 100px);
 }
 
@@ -1455,10 +1269,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(30vh 100px);
 }
 
@@ -1479,10 +1291,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(20vh 100px);
 }
 
@@ -1503,10 +1313,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(20vh 100px);
 }
 
@@ -1527,10 +1335,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(20vh 100px);
 }
 
@@ -1551,10 +1357,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(10vh 100px);
 }
 
@@ -1575,10 +1379,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(10vh 100px);
 }
 
@@ -1599,10 +1401,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(10vh 100px);
 }
 
@@ -1623,10 +1423,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #f4f4f0;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-altLight-effect 1s ease-in 1 backwards;
-          animation: background-altLight-effect 1s ease-in 1 backwards;
+  animation: background-altLight-effect 1s ease-in 1 backwards;
   animation-timeline: view(200px 100px);
 }
 
@@ -1647,10 +1445,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #000;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-black-effect 1s ease-in 1 backwards;
-          animation: background-black-effect 1s ease-in 1 backwards;
+  animation: background-black-effect 1s ease-in 1 backwards;
   animation-timeline: view(200px 100px);
 }
 
@@ -1671,10 +1467,8 @@ footer .row div ul .show-products:hover p span.plus-icon {
   right: 0;
   top: 0;
   background-color: #fff;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-animation: background-light-effect 1s ease-in 1 backwards;
-          animation: background-light-effect 1s ease-in 1 backwards;
+  animation: background-light-effect 1s ease-in 1 backwards;
   animation-timeline: view(200px 100px);
 }
 
@@ -1693,13 +1487,10 @@ footer .row div ul .show-products:hover p span.plus-icon {
   width: 85%;
   height: 85%;
   background-color: transparent;
-  -webkit-backdrop-filter: blur(1px);
-          backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  -webkit-transition: 0.3s;
+  transform: translate(-50%, -50%);
   transition: 0.3s;
 }
 .blur-layer-hover:hover::before {
@@ -1711,229 +1502,169 @@ footer .row div ul .show-products:hover p span.plus-icon {
 * @name: blur-layer-hover
 */
 .show-text-y-10 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(90vh 100px);
 }
 
 .show-text-y-20 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(80vh 100px);
 }
 
 .show-text-y-30 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(70vh 100px);
 }
 
 .show-text-y-40 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(60vh 100px);
 }
 
 .show-text-y-50 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(50vh 100px);
 }
 
 .show-text-y-60 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(40vh 100px);
 }
 
 .show-text-y-70 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(30vh 100px);
 }
 
 .show-text-y-80 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(20vh 100px);
 }
 
 .show-text-y-90 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(10vh 100px);
 }
 
 .show-text-y-100 {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(0vh 100px);
 }
 
 .show-text-y {
-  -webkit-animation: show-text-y 0.5s ease-out 1 backwards;
-          animation: show-text-y 0.5s ease-out 1 backwards;
+  animation: show-text-y 0.5s ease-out 1 backwards;
   animation-timeline: view(100vh 100px);
-}
-
-@-webkit-keyframes show-text-y {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(50px);
-            transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-  }
 }
 
 @keyframes show-text-y {
   from {
     opacity: 0;
-    -webkit-transform: translateY(50px);
-            transform: translateY(50px);
+    transform: translateY(50px);
   }
   to {
     opacity: 1;
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
+    transform: translateY(0px);
   }
 }
 .show-text-x-10 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(90vh 100px);
 }
 
 .show-text-x-20 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(80vh 100px);
 }
 
 .show-text-x-30 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(70vh 100px);
 }
 
 .show-text-x-40 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(60vh 100px);
 }
 
 .show-text-x-50 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(50vh 100px);
 }
 
 .show-text-x-60 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(40vh 100px);
 }
 
 .show-text-x-70 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(30vh 100px);
 }
 
 .show-text-x-80 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(20vh 100px);
 }
 
 .show-text-x-90 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(10vh 100px);
 }
 
 .show-text-x-100 {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(0vh 100px);
 }
 
 .show-text-x {
-  -webkit-animation: show-text-x 0.5s ease-out 1 backwards;
-          animation: show-text-x 0.5s ease-out 1 backwards;
+  animation: show-text-x 0.5s ease-out 1 backwards;
   animation-timeline: view(100vh 100px);
-}
-
-@-webkit-keyframes show-text-x {
-  from {
-    opacity: 0;
-    -webkit-transform: translateX(-50px);
-            transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    -webkit-transform: translateX(0px);
-            transform: translateX(0px);
-  }
 }
 
 @keyframes show-text-x {
   from {
     opacity: 0;
-    -webkit-transform: translateX(-50px);
-            transform: translateX(-50px);
+    transform: translateX(-50px);
   }
   to {
     opacity: 1;
-    -webkit-transform: translateX(0px);
-            transform: translateX(0px);
+    transform: translateX(0px);
   }
 }
 @media (max-width: 767px) {
   .animation-delay-sm-1 {
-    -webkit-animation-delay: 0.25s !important;
-            animation-delay: 0.25s !important;
+    animation-delay: 0.25s !important;
   }
 }
 .animation-delay-1 {
-  -webkit-animation-delay: 0.25s;
-          animation-delay: 0.25s;
+  animation-delay: 0.25s;
 }
 
 @media (max-width: 767px) {
   .animation-delay-sm-2 {
-    -webkit-animation-delay: 0.5s !important;
-            animation-delay: 0.5s !important;
+    animation-delay: 0.5s !important;
   }
 }
 .animation-delay-2 {
-  -webkit-animation-delay: 0.5s;
-          animation-delay: 0.5s;
+  animation-delay: 0.5s;
 }
 
 @media (max-width: 767px) {
   .animation-delay-sm-3 {
-    -webkit-animation-delay: 0.75s !important;
-            animation-delay: 0.75s !important;
+    animation-delay: 0.75s !important;
   }
 }
 .animation-delay-3 {
-  -webkit-animation-delay: 0.75s;
-          animation-delay: 0.75s;
+  animation-delay: 0.75s;
 }
 
 @media (max-width: 767px) {
   .animation-delay-sm-4 {
-    -webkit-animation-delay: 1s !important;
-            animation-delay: 1s !important;
+    animation-delay: 1s !important;
   }
 }
 .animation-delay-4 {
-  -webkit-animation-delay: 1s;
-          animation-delay: 1s;
+  animation-delay: 1s;
 }
 
 .ls-0 {

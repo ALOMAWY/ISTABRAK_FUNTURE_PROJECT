@@ -91,7 +91,6 @@ function clickToRemove() {
             var _a;
             let productItem = (_a = deleteProd.parentNode) === null || _a === void 0 ? void 0 : _a.parentNode;
             let currentUpdatingProductId = productItem.getAttribute("product-id") || "";
-            console.log(currentUpdatingProductId);
             try {
                 await deleteDocument(currentUpdatingProductId);
                 productItem.remove();
@@ -203,7 +202,6 @@ form === null || form === void 0 ? void 0 : form.addEventListener("submit", (e) 
 });
 // Load The Product When The Page Loaded
 window.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM fully loaded, calling getProdcutsAndDisplayIt...");
     getProdcutsAndDisplayIt();
 });
 deleteAll === null || deleteAll === void 0 ? void 0 : deleteAll.addEventListener("click", async () => {
@@ -226,7 +224,8 @@ async function getProdcutsAndDisplayIt() {
     console.log("fetching date...");
     try {
         let productsArray = (await getAllDocuments()) || [];
-        productsArrayLength = productsArray.length;
+        if (Array.isArray(productsArray))
+            productsArrayLength = productsArray.length;
         console.log("products Number Is :", productsArrayLength);
         if (productsArray.length)
             displayProducts(productsArray);
@@ -236,6 +235,7 @@ async function getProdcutsAndDisplayIt() {
     catch (error) {
         console.log("No Products In Data Base To Show 😊");
     }
+    console.log("Data Fetched No Other Data");
 }
 // getProdcutsAndDisplayIt()
 function displayError(message) {

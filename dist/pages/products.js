@@ -1,21 +1,29 @@
 import { getAllDocuments } from "./database.js";
+let loaded = false;
 window.addEventListener("load", () => {
     getProductsAndDisplayIt();
 });
 let productHolders = Array.from(document.querySelectorAll(".products"));
 let productsArray;
-function displayProducts(products) {
-    products.forEach((prod) => {
-        var _a;
-        let product = document.createElement("div");
-        product.classList.add("product", "col-sm-12", "col-md-5", "col-lg-2", "border", "border-gray", "rounded-3");
-        product.setAttribute("prod-id", prod.id);
-        let img = document.createElement("img");
-        img.classList.add("img-fluid", "show-text-x-50", "show-text-x-50", "rounded-4");
-        img.src = prod.imagePath;
-        product.appendChild(img);
-        (_a = document.getElementById(`${prod.type}-prod`)) === null || _a === void 0 ? void 0 : _a.prepend(product);
-    });
+let selectedImage = document.getElementById("selected-image");
+let privewProduct = document.getElementById("privew");
+async function getProductsAndDisplayIt() {
+    try {
+        let products = (await getAllDocuments());
+        productsArray = products;
+        if (products)
+            displayProducts(products);
+        loaded = true;
+    }
+    catch (error) {
+        console.log("No Product In Database");
+        console.log(error);
+        productHolders.forEach((holder) => displayFakeProducts(holder));
+        loaded = false;
+    }
+    applyFunctions();
+}
+function applyFunctions() {
     productHolders.forEach((ele) => {
         let holder = ele;
         displaySpecifiedNumberOfProduct(holder);
@@ -23,30 +31,60 @@ function displayProducts(products) {
         addShowingProductsNumber(holder);
         setTheTitleFixedTopIfInProductScoope(holder);
         showClickedPictureMoreDetails(holder);
+        addMoreButtonControl(holder);
+        if (loaded) {
+            holder.classList.remove("empty");
+        }
+        else {
+            holder.classList.add("empty");
+        }
     });
 }
-async function getProductsAndDisplayIt() {
-    try {
-        let products = (await getAllDocuments());
-        productsArray = products;
-        if (products)
-            displayProducts(products);
+function displayProducts(products) {
+    products.forEach((prod) => {
+        var _a;
+        let product = document.createElement("div");
+        product.classList.add("product", "col-sm-12", "col-md-5", "col-lg-2", "flex-grow-1", "border", "border-gray", "rounded-3");
+        product.setAttribute("prod-id", prod.id);
+        let img = document.createElement("img");
+        img.classList.add("img-fluid", "show-text-x-30", "rounded-4");
+        img.src = prod.imagePath;
+        product.appendChild(img);
+        (_a = document.getElementById(`${prod.type}-prod`)) === null || _a === void 0 ? void 0 : _a.prepend(product);
+    });
+}
+function displayFakeProducts(productsHolder) {
+    let uniecClass = productsHolder.getAttribute("data-un-class");
+    let holder = document.querySelector(`.${uniecClass} .holder .row`);
+    let prodNums = 1;
+    if (document.documentElement.clientWidth < 768) {
+        prodNums = 2;
     }
-    catch (error) {
-        console.error("No Product In Database", error);
-        productHolders.forEach((ele) => {
-            let holder = ele;
-            displaySpecifiedNumberOfProduct(holder);
-            getProductsNumber(holder);
-            addShowingProductsNumber(holder);
-            setTheTitleFixedTopIfInProductScoope(holder);
-            showClickedPictureMoreDetails(holder);
+    else if (document.documentElement.clientWidth > 768 &&
+        document.documentElement.clientWidth < 991) {
+        prodNums = 6;
+    }
+    else {
+        prodNums = 10;
+    }
+    for (let i = 0; i < prodNums; i++) {
+        let fakeProduct = document.createElement("div");
+        fakeProduct.classList.add("product", "fake-product", "col-sm-12", "col-md-5", "col-lg-2", "border", "border-gray", "rounded-3");
+        let fakeImage = document.createElement("img");
+        fakeImage.src = "../assets/images/theme-plugin-placeholder.webp";
+        fakeImage.classList.add("img-fluid", "rounded-4");
+        fakeProduct.appendChild(fakeImage);
+        holder.appendChild(fakeProduct);
+        fakeProduct.addEventListener("click", () => {
+            return false;
         });
     }
 }
 function displaySpecifiedNumberOfProduct(productsHolder) {
     let uniecClass = productsHolder.getAttribute("data-un-class");
     let productsContainer = Array.from(document.querySelectorAll(`.${uniecClass} .holder .row div.product`));
+    if (productsHolder.classList.contains("empty"))
+        return false;
     if (productsContainer)
         productsContainer.forEach((card, index) => {
             if (index >= 5) {
@@ -59,6 +97,8 @@ function displaySpecifiedNumberOfProduct(productsHolder) {
 }
 function getProductsNumber(productsHolder) {
     let uniecClass = productsHolder.getAttribute("data-un-class");
+    if (productsHolder.classList.contains("empty"))
+        return false;
     let productsLength = document.querySelectorAll(`.${uniecClass} .holder .row div.product`).length;
     let productsLengthArea = document.querySelector(`.${uniecClass} .products-length`);
     if (productsLengthArea)
@@ -129,15 +169,21 @@ function showClickedPictureMoreDetails(productsHolder) {
     let uniecClass = productsHolder.getAttribute("data-un-class");
     let products = document.querySelectorAll(`.${uniecClass} .holder .row`);
     const emptyArea = document.getElementById("low-opacity-area");
+    if (productsHolder.classList.contains("empty"))
+        return false;
     products.forEach((card) => {
         card.addEventListener("click", (clickedProduct) => {
+            if (card.classList.contains("fake-product")) {
+                console.log("dasd");
+                return false;
+            }
             let clickedElement = clickedProduct.target;
             let productsData = productsArray;
             let productId;
             console.log(clickedElement);
-            if (gallery.classList.contains("h-0")) {
-                gallery.classList.remove("h-0");
-                gallery.classList.add("h-100");
+            if (privewProduct.classList.contains("h-0")) {
+                privewProduct.classList.remove("h-0");
+                privewProduct.classList.add("h-100");
             }
             if (clickedElement.tagName == "IMG") {
                 let privewImage = clickedElement;
@@ -153,7 +199,6 @@ function showClickedPictureMoreDetails(productsHolder) {
                 productId = clickedElement.getAttribute("prod-id") || "";
             }
             let productData = productsData.filter((prod) => prod.id == productId)[0];
-            console.log(productData);
             // Privew Product Detailes
             let prodType = document.getElementById("prod-type");
             let prodModel = document.getElementById("prod-model");
@@ -166,21 +211,23 @@ function showClickedPictureMoreDetails(productsHolder) {
         });
     });
     emptyArea === null || emptyArea === void 0 ? void 0 : emptyArea.addEventListener("click", () => {
-        if (!gallery.classList.contains("h-0")) {
-            gallery.classList.add("h-0");
-            gallery.classList.remove("h-100");
+        if (!privewProduct.classList.contains("h-0")) {
+            privewProduct.classList.add("h-0");
+            privewProduct.classList.remove("h-100");
         }
     });
 }
-let selectedImage = document.getElementById("selected-image");
-let gallery = document.getElementById("gallery");
-let galleryCloseButton = document.querySelector(".gallery .close-gallery");
-let closeGallery = document.querySelector(".gallery .tools .close");
-galleryCloseButton === null || galleryCloseButton === void 0 ? void 0 : galleryCloseButton.addEventListener("click", () => {
-    gallery.classList.remove("w-25");
-    gallery.classList.remove("w-50");
-    gallery.classList.add("w-0");
-});
+function addMoreButtonControl(productsHolder) {
+    let uniecClass = productsHolder.getAttribute("data-un-class");
+    let products = document.querySelectorAll(`.${uniecClass} .holder .row .product`);
+    let showMoreBtn = document.querySelector(`.${uniecClass} .show-more`);
+    if (products.length <= 5) {
+        showMoreBtn === null || showMoreBtn === void 0 ? void 0 : showMoreBtn.classList.add("d-none");
+    }
+    else {
+        showMoreBtn === null || showMoreBtn === void 0 ? void 0 : showMoreBtn.classList.remove("d-none");
+    }
+}
 function scalingShow(ele) {
     ele.style.scale = "0 1";
     ele.classList.remove("d-none");
