@@ -54,17 +54,17 @@ function _getProductsAndDisplayIt() {
 function applyFunctions() {
   productHolders.forEach(function (ele) {
     var holder = ele;
+    if (loaded) {
+      holder.classList.remove("empty");
+    } else {
+      holder.classList.add("empty");
+    }
     displaySpecifiedNumberOfProduct(holder);
     getProductsNumber(holder);
     addShowingProductsNumber(holder);
     fixedTheTitleOnFocusIt(holder);
     showClickedPictureMoreDetails(holder);
     addMoreButtonControl(holder);
-    if (loaded) {
-      holder.classList.remove("empty");
-    } else {
-      holder.classList.add("empty");
-    }
   });
 }
 function displayProducts(products) {
@@ -93,7 +93,7 @@ function displayFakeProducts(productsHolder) {
   }
   for (var i = 0; i < prodNums; i++) {
     var fakeProduct = document.createElement("div");
-    fakeProduct.classList.add("product", "fake-product", "col-sm-12", "col-md-5", "col-lg-2", "border", "border-gray", "rounded-3");
+    fakeProduct.classList.add("product", "fake-product", "col-sm-12", "col-md-5", "col-lg-2", "flex-grow-1", "border", "border-gray", "rounded-3");
     var fakeImage = document.createElement("img");
     fakeImage.src = "../assets/images/theme-plugin-placeholder.webp";
     fakeImage.classList.add("img-fluid", "rounded-4");
@@ -109,7 +109,15 @@ function displaySpecifiedNumberOfProduct(productsHolder) {
   var productsContainer = Array.from(document.querySelectorAll(".".concat(uniecClass, " .holder .row div.product")));
   if (productsHolder.classList.contains("empty")) return false;
   if (productsContainer) productsContainer.forEach(function (card, index) {
-    if (index >= 5) {
+    var showLimit = 5;
+    if (document.documentElement.clientWidth < 768) {
+      showLimit = 2;
+    } else if (document.documentElement.clientWidth > 768 && document.documentElement.clientWidth < 991) {
+      showLimit = 4;
+    } else {
+      showLimit = 5;
+    }
+    if (index >= showLimit) {
       card.classList.add("d-none");
     } else {
       card.classList.remove("d-none");
@@ -127,6 +135,13 @@ function addShowingProductsNumber(productsHolder) {
   var uniecClass = productsHolder.getAttribute("data-un-class");
   var showMoreBtn = document.querySelector(".".concat(uniecClass, " .show-more"));
   var showMoreLimit = 5;
+  if (document.documentElement.clientWidth < 768) {
+    showMoreLimit = 2;
+  } else if (document.documentElement.clientWidth > 768 && document.documentElement.clientWidth < 991) {
+    showMoreLimit = 4;
+  } else {
+    showMoreLimit = 5;
+  }
   var products = document.querySelectorAll(".".concat(uniecClass, " .holder .row div.product"));
   var productsLength = products.length;
   showMoreBtn === null || showMoreBtn === void 0 || showMoreBtn.addEventListener("click", function () {
@@ -134,12 +149,14 @@ function addShowingProductsNumber(productsHolder) {
       return !prod.classList.contains("d-none");
     }).length;
     var nextShowingProducts = currentShowingProducts + showMoreLimit;
-    if (nextShowingProducts == productsLength) return false;
+    if (currentShowingProducts == productsLength) return false;
+    if (nextShowingProducts >= productsLength) showMoreBtn.classList.add("d-none");
+    showMoreBtn.classList.remove("d-block");
     var productsLengthArea = document.querySelector(".".concat(uniecClass, " .products-length"));
     if (nextShowingProducts > productsLength) {
-      if (productsLengthArea) productsLengthArea.innerHTML = "".concat(productsLength, "/").concat(productsLength, " Products ");
+      if (productsLengthArea) productsLengthArea.innerHTML = "".concat(productsLength, "/").concat(productsLength, " Products");
     } else {
-      if (productsLengthArea) productsLengthArea.innerHTML = "".concat(nextShowingProducts, "/").concat(productsLength, " Products ");
+      if (productsLengthArea) productsLengthArea.innerHTML = "".concat(nextShowingProducts, "/").concat(productsLength, " Products");
     }
     products.forEach(function (card, index) {
       if (index + 1 <= nextShowingProducts) {
@@ -167,7 +184,6 @@ function fixedTheTitleOnFocusIt(productsContainer) {
     var offsetTop = productsContainer.offsetTop;
     var titleHeight = title.clientHeight;
     titleHolder.style.height = titleHeight + "px";
-    console.log(titleHeight);
     var productsHeight = productsContainer.clientHeight;
     var inProductsScope = scrollY > offsetTop && scrollY < offsetTop + productsHeight;
     if (title) title.classList.toggle("position-fixed", inProductsScope);
@@ -191,13 +207,11 @@ function showClickedPictureMoreDetails(productsHolder) {
   products.forEach(function (card) {
     card.addEventListener("click", function (clickedProduct) {
       if (card.classList.contains("fake-product")) {
-        console.log("dasd");
         return false;
       }
       var clickedElement = clickedProduct.target;
       var productsData = productsArray;
       var productId;
-      console.log(clickedElement);
       if (privewProduct.classList.contains("h-0")) {
         privewProduct.classList.remove("h-0");
         privewProduct.classList.add("h-100");

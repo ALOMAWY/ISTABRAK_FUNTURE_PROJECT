@@ -40,6 +40,11 @@ async function getProductsAndDisplayIt() {
 function applyFunctions() {
   productHolders.forEach((ele) => {
     let holder = ele as HTMLDivElement;
+    if (loaded) {
+      holder.classList.remove("empty");
+    } else {
+      holder.classList.add("empty");
+    }
 
     displaySpecifiedNumberOfProduct(holder);
 
@@ -52,12 +57,6 @@ function applyFunctions() {
     showClickedPictureMoreDetails(holder);
 
     addMoreButtonControl(holder);
-
-    if (loaded) {
-      holder.classList.remove("empty");
-    } else {
-      holder.classList.add("empty");
-    }
   });
 }
 
@@ -119,6 +118,7 @@ function displayFakeProducts(productsHolder: HTMLDivElement) {
       "col-sm-12",
       "col-md-5",
       "col-lg-2",
+      "flex-grow-1",
       "border",
       "border-gray",
       "rounded-3"
@@ -151,7 +151,20 @@ function displaySpecifiedNumberOfProduct(productsHolder: HTMLDivElement) {
 
   if (productsContainer)
     productsContainer.forEach((card, index) => {
-      if (index >= 5) {
+      let showLimit = 5;
+
+      if (document.documentElement.clientWidth < 768) {
+        showLimit = 2;
+      } else if (
+        document.documentElement.clientWidth > 768 &&
+        document.documentElement.clientWidth < 991
+      ) {
+        showLimit = 4;
+      } else {
+        showLimit = 5;
+      }
+
+      if (index >= showLimit) {
         card.classList.add("d-none");
       } else {
         card.classList.remove("d-none");
@@ -183,6 +196,17 @@ function addShowingProductsNumber(productsHolder: HTMLDivElement) {
 
   let showMoreLimit = 5;
 
+  if (document.documentElement.clientWidth < 768) {
+    showMoreLimit = 2;
+  } else if (
+    document.documentElement.clientWidth > 768 &&
+    document.documentElement.clientWidth < 991
+  ) {
+    showMoreLimit = 4;
+  } else {
+    showMoreLimit = 5;
+  }
+
   let products = document.querySelectorAll(
     `.${uniecClass} .holder .row div.product`
   );
@@ -196,7 +220,11 @@ function addShowingProductsNumber(productsHolder: HTMLDivElement) {
 
     let nextShowingProducts = currentShowingProducts + showMoreLimit;
 
-    if (nextShowingProducts == productsLength) return false;
+    if (currentShowingProducts == productsLength) return false;
+
+    if (nextShowingProducts >= productsLength)
+      showMoreBtn.classList.add("d-none");
+    showMoreBtn.classList.remove("d-block");
 
     let productsLengthArea = document.querySelector(
       `.${uniecClass} .products-length`
@@ -204,10 +232,10 @@ function addShowingProductsNumber(productsHolder: HTMLDivElement) {
 
     if (nextShowingProducts > productsLength) {
       if (productsLengthArea)
-        productsLengthArea.innerHTML = `${productsLength}/${productsLength} Products `;
+        productsLengthArea.innerHTML = `${productsLength}/${productsLength} Products`;
     } else {
       if (productsLengthArea)
-        productsLengthArea.innerHTML = `${nextShowingProducts}/${productsLength} Products `;
+        productsLengthArea.innerHTML = `${nextShowingProducts}/${productsLength} Products`;
     }
 
     products.forEach((card, index) => {
@@ -249,8 +277,6 @@ function fixedTheTitleOnFocusIt(productsContainer: HTMLDivElement) {
     let titleHeight: number = title.clientHeight;
 
     titleHolder.style.height = titleHeight + "px";
-
-    console.log(titleHeight);
 
     let productsHeight: number = productsContainer.clientHeight;
 
@@ -302,15 +328,12 @@ function showClickedPictureMoreDetails(productsHolder: HTMLDivElement) {
   products.forEach((card) => {
     card.addEventListener("click", (clickedProduct) => {
       if (card.classList.contains("fake-product")) {
-        console.log("dasd");
         return false;
       }
 
       let clickedElement = clickedProduct.target as HTMLElement;
       let productsData: Product[] = productsArray;
       let productId: string;
-
-      console.log(clickedElement);
 
       if (privewProduct.classList.contains("h-0")) {
         privewProduct.classList.remove("h-0");
