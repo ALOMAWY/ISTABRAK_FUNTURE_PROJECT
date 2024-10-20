@@ -1,5 +1,7 @@
 import { getAllDocuments, Product } from "./database.js";
+
 let loaded = false;
+
 window.addEventListener("load", () => {
   getProductsAndDisplayIt();
 });
@@ -24,7 +26,7 @@ async function getProductsAndDisplayIt() {
     loaded = true;
   } catch (error) {
     console.log("No Product In Database");
-    console.log(error);
+    console.error(error);
 
     productHolders.forEach((holder) =>
       displayFakeProducts(holder as HTMLDivElement)
@@ -45,7 +47,7 @@ function applyFunctions() {
 
     addShowingProductsNumber(holder);
 
-    setTheTitleFixedTopIfInProductScoope(holder);
+    fixedTheTitleOnFocusIt(holder);
 
     showClickedPictureMoreDetails(holder);
 
@@ -181,51 +183,49 @@ function addShowingProductsNumber(productsHolder: HTMLDivElement) {
 
   let showMoreLimit = 5;
 
+  let products = document.querySelectorAll(
+    `.${uniecClass} .holder .row div.product`
+  );
+
+  let productsLength = products.length;
+
   showMoreBtn?.addEventListener("click", () => {
-    let products = document.querySelectorAll(
-      `.${uniecClass} .holder .row div.product`
-    );
-
-    let productsLength = products.length;
-
-    let showingProducts = Array.from(products).filter(
+    let currentShowingProducts = Array.from(products).filter(
       (prod) => !prod.classList.contains("d-none")
     ).length;
 
-    let productsContainer = Array.from(products);
+    let nextShowingProducts = currentShowingProducts + showMoreLimit;
 
-    if (productsContainer)
-      productsContainer.forEach((card, index) => {
-        if (index >= showingProducts + showMoreLimit) {
-          card.classList.add("d-none");
-        } else {
-          scalingShow(card as HTMLElement);
-        }
-      });
+    if (nextShowingProducts == productsLength) return false;
 
     let productsLengthArea = document.querySelector(
       `.${uniecClass} .products-length`
     );
 
-    if (productsLengthArea)
-      productsLengthArea.innerHTML = `${
-        showingProducts + showMoreLimit > productsLength
-          ? productsLength
-          : showingProducts + showMoreLimit
-      }/${productsLength} Products `;
+    if (nextShowingProducts > productsLength) {
+      if (productsLengthArea)
+        productsLengthArea.innerHTML = `${productsLength}/${productsLength} Products `;
+    } else {
+      if (productsLengthArea)
+        productsLengthArea.innerHTML = `${nextShowingProducts}/${productsLength} Products `;
+    }
 
-    if (showingProducts + showMoreLimit >= productsLength) return false;
+    products.forEach((card, index) => {
+      if (index + 1 <= nextShowingProducts) {
+        scalingShow(card as HTMLElement);
+      } else {
+        card.classList.add("d-none");
+      }
+    });
   });
 }
 
-function setTheTitleFixedTopIfInProductScoope(
-  productsContainer: HTMLDivElement
-) {
+function fixedTheTitleOnFocusIt(productsContainer: HTMLDivElement) {
   const uniecClass = productsContainer.getAttribute("data-un-class");
+
   const title = document.querySelector(
     `.${uniecClass} h1.big-title`
   ) as HTMLHeadingElement;
-  const titleHeight = title?.clientHeight;
 
   title?.remove();
 
@@ -248,10 +248,14 @@ function setTheTitleFixedTopIfInProductScoope(
 
     let titleHeight: number = title.clientHeight;
 
+    titleHolder.style.height = titleHeight + "px";
+
+    console.log(titleHeight);
+
     let productsHeight: number = productsContainer.clientHeight;
 
     let inProductsScope: boolean =
-      scrollY >= offsetTop && scrollY < offsetTop + productsHeight;
+      scrollY > offsetTop && scrollY < offsetTop + productsHeight;
 
     if (title) title.classList.toggle("position-fixed", inProductsScope);
 

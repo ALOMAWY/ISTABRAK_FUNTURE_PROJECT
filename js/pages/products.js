@@ -30,19 +30,20 @@ function _getProductsAndDisplayIt() {
           productsArray = products;
           if (products) displayProducts(products);
           loaded = true;
-          _context.next = 14;
+          _context.next = 15;
           break;
         case 9:
           _context.prev = 9;
           _context.t0 = _context["catch"](0);
           console.log("No Product In Database");
+          console.error(_context.t0);
           productHolders.forEach(function (holder) {
             return displayFakeProducts(holder);
           });
           loaded = false;
-        case 14:
-          applyFunctions();
         case 15:
+          applyFunctions();
+        case 16:
         case "end":
           return _context.stop();
       }
@@ -56,7 +57,7 @@ function applyFunctions() {
     displaySpecifiedNumberOfProduct(holder);
     getProductsNumber(holder);
     addShowingProductsNumber(holder);
-    setTheTitleFixedTopIfInProductScoope(holder);
+    fixedTheTitleOnFocusIt(holder);
     showClickedPictureMoreDetails(holder);
     addMoreButtonControl(holder);
     if (loaded) {
@@ -77,11 +78,6 @@ function displayProducts(products) {
     img.src = prod.imagePath;
     product.appendChild(img);
     (_document$getElementB = document.getElementById("".concat(prod.type, "-prod"))) === null || _document$getElementB === void 0 || _document$getElementB.prepend(product);
-  });
-  var productWidth = document.querySelectorAll(".product")[0].clientWidth;
-  products.forEach(function (prod) {
-    var product = prod;
-    product.style.height = productWidth + "px";
   });
 }
 function displayFakeProducts(productsHolder) {
@@ -131,29 +127,32 @@ function addShowingProductsNumber(productsHolder) {
   var uniecClass = productsHolder.getAttribute("data-un-class");
   var showMoreBtn = document.querySelector(".".concat(uniecClass, " .show-more"));
   var showMoreLimit = 5;
+  var products = document.querySelectorAll(".".concat(uniecClass, " .holder .row div.product"));
+  var productsLength = products.length;
   showMoreBtn === null || showMoreBtn === void 0 || showMoreBtn.addEventListener("click", function () {
-    var products = document.querySelectorAll(".".concat(uniecClass, " .holder .row div.product"));
-    var productsLength = products.length;
-    var showingProducts = Array.from(products).filter(function (prod) {
+    var currentShowingProducts = Array.from(products).filter(function (prod) {
       return !prod.classList.contains("d-none");
     }).length;
-    var productsContainer = Array.from(products);
-    if (productsContainer) productsContainer.forEach(function (card, index) {
-      if (index >= showingProducts + showMoreLimit) {
-        card.classList.add("d-none");
-      } else {
+    var nextShowingProducts = currentShowingProducts + showMoreLimit;
+    if (nextShowingProducts == productsLength) return false;
+    var productsLengthArea = document.querySelector(".".concat(uniecClass, " .products-length"));
+    if (nextShowingProducts > productsLength) {
+      if (productsLengthArea) productsLengthArea.innerHTML = "".concat(productsLength, "/").concat(productsLength, " Products ");
+    } else {
+      if (productsLengthArea) productsLengthArea.innerHTML = "".concat(nextShowingProducts, "/").concat(productsLength, " Products ");
+    }
+    products.forEach(function (card, index) {
+      if (index + 1 <= nextShowingProducts) {
         scalingShow(card);
+      } else {
+        card.classList.add("d-none");
       }
     });
-    var productsLengthArea = document.querySelector(".".concat(uniecClass, " .products-length"));
-    if (productsLengthArea) productsLengthArea.innerHTML = "".concat(showingProducts + showMoreLimit > productsLength ? productsLength : showingProducts + showMoreLimit, "/").concat(productsLength, " Products ");
-    if (showingProducts + showMoreLimit >= productsLength) return false;
   });
 }
-function setTheTitleFixedTopIfInProductScoope(productsContainer) {
+function fixedTheTitleOnFocusIt(productsContainer) {
   var uniecClass = productsContainer.getAttribute("data-un-class");
   var title = document.querySelector(".".concat(uniecClass, " h1.big-title"));
-  var titleHeight = title === null || title === void 0 ? void 0 : title.clientHeight;
   title === null || title === void 0 || title.remove();
 
   // Create Title Holder For Pin Title In Page Top
@@ -167,8 +166,10 @@ function setTheTitleFixedTopIfInProductScoope(productsContainer) {
     var scrollY = window.scrollY;
     var offsetTop = productsContainer.offsetTop;
     var titleHeight = title.clientHeight;
+    titleHolder.style.height = titleHeight + "px";
+    console.log(titleHeight);
     var productsHeight = productsContainer.clientHeight;
-    var inProductsScope = scrollY >= offsetTop && scrollY < offsetTop + productsHeight;
+    var inProductsScope = scrollY > offsetTop && scrollY < offsetTop + productsHeight;
     if (title) title.classList.toggle("position-fixed", inProductsScope);
     if (inProductsScope) {
       if (title) title.classList.add("start-0", "py-4", "px-2", "w-100", "z-3", "shadow-sm");

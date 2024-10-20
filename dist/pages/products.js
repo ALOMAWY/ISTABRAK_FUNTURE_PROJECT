@@ -17,7 +17,7 @@ async function getProductsAndDisplayIt() {
     }
     catch (error) {
         console.log("No Product In Database");
-        console.log(error);
+        console.error(error);
         productHolders.forEach((holder) => displayFakeProducts(holder));
         loaded = false;
     }
@@ -29,7 +29,7 @@ function applyFunctions() {
         displaySpecifiedNumberOfProduct(holder);
         getProductsNumber(holder);
         addShowingProductsNumber(holder);
-        setTheTitleFixedTopIfInProductScoope(holder);
+        fixedTheTitleOnFocusIt(holder);
         showClickedPictureMoreDetails(holder);
         addMoreButtonControl(holder);
         if (loaded) {
@@ -108,33 +108,35 @@ function addShowingProductsNumber(productsHolder) {
     let uniecClass = productsHolder.getAttribute("data-un-class");
     let showMoreBtn = document.querySelector(`.${uniecClass} .show-more`);
     let showMoreLimit = 5;
+    let products = document.querySelectorAll(`.${uniecClass} .holder .row div.product`);
+    let productsLength = products.length;
     showMoreBtn === null || showMoreBtn === void 0 ? void 0 : showMoreBtn.addEventListener("click", () => {
-        let products = document.querySelectorAll(`.${uniecClass} .holder .row div.product`);
-        let productsLength = products.length;
-        let showingProducts = Array.from(products).filter((prod) => !prod.classList.contains("d-none")).length;
-        let productsContainer = Array.from(products);
-        if (productsContainer)
-            productsContainer.forEach((card, index) => {
-                if (index >= showingProducts + showMoreLimit) {
-                    card.classList.add("d-none");
-                }
-                else {
-                    scalingShow(card);
-                }
-            });
-        let productsLengthArea = document.querySelector(`.${uniecClass} .products-length`);
-        if (productsLengthArea)
-            productsLengthArea.innerHTML = `${showingProducts + showMoreLimit > productsLength
-                ? productsLength
-                : showingProducts + showMoreLimit}/${productsLength} Products `;
-        if (showingProducts + showMoreLimit >= productsLength)
+        let currentShowingProducts = Array.from(products).filter((prod) => !prod.classList.contains("d-none")).length;
+        let nextShowingProducts = currentShowingProducts + showMoreLimit;
+        if (nextShowingProducts == productsLength)
             return false;
+        let productsLengthArea = document.querySelector(`.${uniecClass} .products-length`);
+        if (nextShowingProducts > productsLength) {
+            if (productsLengthArea)
+                productsLengthArea.innerHTML = `${productsLength}/${productsLength} Products `;
+        }
+        else {
+            if (productsLengthArea)
+                productsLengthArea.innerHTML = `${nextShowingProducts}/${productsLength} Products `;
+        }
+        products.forEach((card, index) => {
+            if (index + 1 <= nextShowingProducts) {
+                scalingShow(card);
+            }
+            else {
+                card.classList.add("d-none");
+            }
+        });
     });
 }
-function setTheTitleFixedTopIfInProductScoope(productsContainer) {
+function fixedTheTitleOnFocusIt(productsContainer) {
     const uniecClass = productsContainer.getAttribute("data-un-class");
     const title = document.querySelector(`.${uniecClass} h1.big-title`);
-    const titleHeight = title === null || title === void 0 ? void 0 : title.clientHeight;
     title === null || title === void 0 ? void 0 : title.remove();
     // Create Title Holder For Pin Title In Page Top
     const titleHolder = document.createElement("div");
@@ -147,8 +149,10 @@ function setTheTitleFixedTopIfInProductScoope(productsContainer) {
         let scrollY = window.scrollY;
         let offsetTop = productsContainer.offsetTop;
         let titleHeight = title.clientHeight;
+        titleHolder.style.height = titleHeight + "px";
+        console.log(titleHeight);
         let productsHeight = productsContainer.clientHeight;
-        let inProductsScope = scrollY >= offsetTop && scrollY < offsetTop + productsHeight;
+        let inProductsScope = scrollY > offsetTop && scrollY < offsetTop + productsHeight;
         if (title)
             title.classList.toggle("position-fixed", inProductsScope);
         if (inProductsScope) {
