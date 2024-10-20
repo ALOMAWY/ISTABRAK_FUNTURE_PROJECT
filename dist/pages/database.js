@@ -73,7 +73,6 @@ export async function getAllDocuments() {
             let doc = document;
             docs.push(doc.data());
         });
-        console.log(docs);
         return docs;
     }
 }

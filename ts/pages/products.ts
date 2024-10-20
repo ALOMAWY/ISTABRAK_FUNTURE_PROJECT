@@ -1,5 +1,4 @@
-import { getAllDocuments, Product } from "./database.js";
-
+import { getAllDocuments, Product } from "../pages/database.js";
 let loaded = false;
 
 window.addEventListener("load", () => {
@@ -390,7 +389,20 @@ function addMoreButtonControl(productsHolder: HTMLDivElement) {
 
   let showMoreBtn = document.querySelector(`.${uniecClass} .show-more`);
 
-  if (products.length <= 5) {
+  let productsNumber = 5;
+
+  if (document.documentElement.clientWidth < 768) {
+    productsNumber = 2;
+  } else if (
+    document.documentElement.clientWidth > 768 &&
+    document.documentElement.clientWidth < 991
+  ) {
+    productsNumber = 4;
+  } else {
+    productsNumber = 5;
+  }
+
+  if (products.length <= productsNumber) {
     showMoreBtn?.classList.add("d-none");
   } else {
     showMoreBtn?.classList.remove("d-none");

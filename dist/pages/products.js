@@ -1,4 +1,4 @@
-import { getAllDocuments } from "./database.js";
+import { getAllDocuments } from "../pages/database.js";
 let loaded = false;
 window.addEventListener("load", () => {
     getProductsAndDisplayIt();
@@ -246,7 +246,18 @@ function addMoreButtonControl(productsHolder) {
     let uniecClass = productsHolder.getAttribute("data-un-class");
     let products = document.querySelectorAll(`.${uniecClass} .holder .row .product`);
     let showMoreBtn = document.querySelector(`.${uniecClass} .show-more`);
-    if (products.length <= 5) {
+    let productsNumber = 5;
+    if (document.documentElement.clientWidth < 768) {
+        productsNumber = 2;
+    }
+    else if (document.documentElement.clientWidth > 768 &&
+        document.documentElement.clientWidth < 991) {
+        productsNumber = 4;
+    }
+    else {
+        productsNumber = 5;
+    }
+    if (products.length <= productsNumber) {
         showMoreBtn === null || showMoreBtn === void 0 ? void 0 : showMoreBtn.classList.add("d-none");
     }
     else {

@@ -7,6 +7,7 @@ let menuCloseButton = document.getElementById("close-menu");
 let navBar = document.querySelector("header nav");
 menuShowButton.addEventListener("click", (e) => {
     menuList.classList.remove("d-none");
+    console.log("c");
     setTimeout(() => {
         menuList.style.opacity = "0.99";
     }, 0);
@@ -33,9 +34,6 @@ async function getProductsAndShowIt() {
         productDiv.appendChild(productImage);
         productDiv.appendChild(productTitle);
         products === null || products === void 0 ? void 0 : products.appendChild(productDiv);
-        let productWidth = productImage.clientWidth;
-        console.log(productWidth);
-        // productDiv.style.height = productWidth + "px";
     });
 }
 getProductsAndShowIt();

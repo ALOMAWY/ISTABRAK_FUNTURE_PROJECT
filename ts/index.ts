@@ -17,6 +17,8 @@ let navBar = document.querySelector("header nav");
 menuShowButton.addEventListener("click", (e) => {
   menuList.classList.remove("d-none");
 
+  console.log("c");
+
   setTimeout(() => {
     menuList.style.opacity = "0.99";
   }, 0);
@@ -68,11 +70,7 @@ async function getProductsAndShowIt() {
 
     products?.appendChild(productDiv);
 
-    let productWidth = productImage.clientWidth;
 
-    console.log(productWidth);
-
-    // productDiv.style.height = productWidth + "px";
   });
 }
 

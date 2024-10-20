@@ -108,7 +108,6 @@ export async function getAllDocuments() {
       docs.push(doc.data());
     });
 
-    console.log(docs);
     return docs as Product[];
   }
 }
