@@ -1,10 +1,16 @@
+// Import DB
+
+import { getAllDocuments, Product } from "./pages/database.js";
+
 // Start Landing
 
-let menuShowButton = <HTMLElement>document.getElementById("menu-btn");
+let menuShowButton = document.getElementById("menu-btn") as HTMLButtonElement;
 
-let menuList = <HTMLElement>document.querySelector("section .menu-area");
+let menuList = document.querySelector("section .menu-area") as HTMLDivElement;
 
-let menuCloseButton = <HTMLElement>document.getElementById("close-menu");
+let menuCloseButton = document.getElementById(
+  "close-menu"
+) as HTMLButtonElement;
 
 let navBar = document.querySelector("header nav");
 
@@ -26,20 +32,65 @@ menuCloseButton.addEventListener("click", (e) => {
 
 // Start Product
 
-/// - - - - - - - - - - - - - -
+let products = document.querySelector(
+  `#our-product .products .row`
+) as HTMLDivElement;
+
+async function getProductsAndShowIt() {
+  let docs = (await getAllDocuments()) as Product[];
+
+  docs.forEach((product) => {
+    let productDiv = document.createElement("div");
+    productDiv.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-3",
+      "mb-5",
+      "show-text-y",
+      "blur-layer-hover"
+    );
+
+    let productImage = document.createElement("img");
+
+    productImage.classList.add("rounded", "img-fluid");
+
+    productImage.src = product.imagePath;
+
+    let productTitle = document.createElement("h3");
+
+    productTitle.classList.add("text-center", "my-4", "text-capitalize");
+
+    productTitle.innerText = product.model;
+
+    productDiv.appendChild(productImage);
+
+    productDiv.appendChild(productTitle);
+
+    products?.appendChild(productDiv);
+
+    let productWidth = productImage.clientWidth;
+
+    console.log(productWidth);
+
+    // productDiv.style.height = productWidth + "px";
+  });
+}
+
+getProductsAndShowIt();
+// - - - - - - - - - - - - - -
 
 // End Product
 
-// // Start Footer
+//  Start Footer
 
-const showProducts = <HTMLElement>(
-  document.querySelector("footer div ul li.show-products")
-);
+const showProducts = document.querySelector(
+  "footer div ul li.show-products"
+) as HTMLLIElement;
 
 showProducts.addEventListener("click", () => {
-  let products = <HTMLElement>(
-    document.querySelector("footer div ul li.show-products ul")
-  );
+  let products = document.querySelector(
+    "footer div ul li.show-products ul"
+  ) as HTMLUListElement;
 
   if (products.clientWidth > 1) {
     products.style.cssText = `height: 0px; width: 0px; opacity: 0;`;
@@ -48,29 +99,8 @@ showProducts.addEventListener("click", () => {
   }
 });
 
-// // End Footer
+// End Footer
 
 // Methods And Functions
-
-// Get Css Property Value From Element
-
-interface HTMLElement {
-  /**
-   * @param {string} property
-   * @returns {string}
-   * @example
-   * // Assuming an element with id 'myDiv' has a width set in CSS
-   * const div = document.getElementById('myDiv') as HTMLDivElement;
-   * console.log(div.getElementStyle('width')); // Logs the computed width
-   */
-
-  getElementStyle(property: string): string;
-}
-
-HTMLElement.prototype.getElementStyle = function (property: string): string {
-  return window.getComputedStyle(this).getPropertyValue(property);
-};
-
-console.log(document.body.getElementStyle("width"));
 
 // Methods And Functions
